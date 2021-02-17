@@ -20,19 +20,19 @@ use GrahamCampbell\Throttle\Facades\Throttle;
 Route::fallback('PageController@notFound');
 
 /////Trang chu
-Route::get('','HomeController@index')->name('home_page');
+Route::get('', ['as' => 'home_page', 'uses' => 'HomeController@index']);
 
 //Login and Logout
 
 
-Route::get('/logout','LoginController@logout')->name('logout');
+Route::get('/admin/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
-Route::get('/login', 'LoginController@getLogin')->name('getLogin')->middleware('CheckLogout');
+Route::get('/admin/login', 'LoginController@getLogin')->name('getLogin')->middleware('CheckLogout');
 
 Route::post('/login', 'LoginController@postLogin')->name('postLogin')->middleware('throttle:3,1');
 
 
-Route::group(['middleware' => 'CheckLogin'], function(){
+Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
 
     //dashboard
 
@@ -93,6 +93,13 @@ Route::group(['middleware' => 'CheckLogin'], function(){
     Route::get('/edit_product/{product_id}', 'ProductController@editProduct')->name('edit_product');
 
     Route::post('/update_product/{product_id}/{product_image}', 'ProductController@updateProduct')->name('update_product');
+
+    //Orders
+    Route::get('/orders/{status}', 'AdminController@showOrders')->name('show_orders');
+
+    Route::get('/orders', 'AdminController@showAllOrders')->name('show_all_orders');
+
+    Route::get('/details/{orders_id}', ['as' => 'show_details', 'uses' => 'AdminController@showDetails']);
 
 });
 

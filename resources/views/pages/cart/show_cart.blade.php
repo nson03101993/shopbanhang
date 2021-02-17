@@ -6,7 +6,7 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-              <li><a href="#">Trang Chủ</a></li>
+              <li><a href="{{ route('home_page') }}">Trang Chủ</a></li>
               <li class="active">Giỏ Hàng</li>
             </ol>
         </div>

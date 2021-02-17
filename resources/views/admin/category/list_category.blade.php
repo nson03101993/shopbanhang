@@ -4,7 +4,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Danh Sách Sản Phẩm
+                Danh Sách Danh Mục
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
@@ -38,45 +38,35 @@
                                     <input type="checkbox"><i></i>
                                 </label>
                             </th>
-                            <th>Tên Sản Phẩm</th>
-                            <th>Giá</th>
-                            <th>Tồn Kho</th>
-                            <th>Ảnh Sản Phẩm</th>
+                            <th>Tên Danh Mục</th>
                             <th>Mô tả</th>
-                            <th>Danh Mục</th>
-                            <th>Thương Hiệu</th>
                             <th>Trạng thái</th>
                             <th style="width:30px;"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($all_product as $items)
+                        @foreach ($all_category as $key => $items)
                             <tr>
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                                <td>{{$items->product_name}}</td>
-                                <td>{{number_format($items->product_price,0,",",".")}} VNĐ</td>
-                                <td>{{$items->product_quantity}}</td>
-                                <td><img width="60px" height="60px" src="{{asset('public/backend/uploads/product/'.$items->product_image)}}" /></td>
-                                <td>{!!$items->product_desc!!}</td>
-                                <td>{{$items->category->cat_name}}</td>
-                                <td>{{$items->brand->brand_name}}</td>
+                                <td>{{$items->cat_name}}</td>
+                                <td>{!!$items->cat_desc!!}</td>
                                 <td>
                                     <?php
-                                        if($items->product_status == 0){
+                                        if($items->cat_status == 0){
                                     ?>
-                                        <a href="{{ route('unhide_product',['product_id' => $items->product_id]) }}"><span style="font-size: 25px; color: red" class="fa fa-thumbs-down"></span></a>
+                                        <a href="{{ route('unhide_category',['cat_id' => $items->cat_id]) }}"><span style="font-size: 25px; color: red" class="fa fa-thumbs-down"></span></a>
                                     <?php
                                         }
                                         else{
                                     ?>
-                                        <a href="{{ route('hide_product',['product_id' => $items->product_id]) }}"><span style="font-size: 25px; color: blue" class="fa fa-thumbs-up"></span></a>
+                                        <a href="{{ route('hide_category',['cat_id' => $items->cat_id]) }}"><span style="font-size: 25px; color: blue" class="fa fa-thumbs-up"></span></a>
                                     <?php
                                         }
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="{{ route('edit_product', ['product_id'=>$items->product_id]) }}"><i class="fa fa-pencil-square-o text-success"></i></a>
-                                    <a onClick="return confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')" href="{{ route('delete_product', ['product_id' => $items->product_id, 'product_image' => $items->product_image ]) }}"><i class="fa fa-trash text-danger"></i></a>
+                                    <a href="{{ route('edit_category', ['cat_id'=>$items->cat_id]) }}"><i class="fa fa-pencil-square-o text-success"></i></a>
+                                    <a onClick="return confirm('Bạn có chắc chắn muốn xoá danh mục này?')" href="{{ route('delete_category', ['cat_id'=>$items->cat_id]) }}"><i class="fa fa-trash text-danger"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -87,17 +77,11 @@
                 <div class="row">
 
                     <div class="col-sm-3 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} sản phẩm</small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} danh mục</small>
                     </div>
                     <div class="col-sm-5 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                           {{--  <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
-                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li> --}}
-                            {{ $all_product->links() }}
+                            {{ $all_category->links() }}
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">

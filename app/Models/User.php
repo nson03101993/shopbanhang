@@ -13,6 +13,6 @@ class User extends Model
 
     //define relationship with orders
     public function orders(){
-        $this->hasMany(Orders::class);
+        return $this->hasMany(Orders::class);
     }
 }

@@ -128,7 +128,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         {{-- End Brand --}}
 
-                        {{-- Brand --}}
+                        {{-- Product --}}
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-shopping-basket"></i>
@@ -139,7 +139,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li><a href="{{ route('list_product') }}">Danh sách sản phẩm</a></li>
                             </ul>
                         </li>
-                        {{-- End Brand --}}
+                        {{-- End Product --}}
+
+                        {{-- Orders --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Đơn hàng</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ route('show_all_orders') }}">Tất cả đơn hàng</a></li>
+                                <li><a href="{{ route('show_orders',1) }}">Đang chờ xử lý</a></li>
+                                <li><a href="{{ route('show_orders',2) }}">Đang giao</a></li>
+                                <li><a href="{{ route('show_orders',3) }}">Đã giao</a></li>
+                                <li><a href="{{ route('show_orders',4) }}">Đã hủy</a></li>
+                            </ul>
+                        </li>
+                        {{-- End Orders --}}
 
                     </ul>
                 </div>

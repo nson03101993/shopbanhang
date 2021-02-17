@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     //Add category
     public function addCategory(){
-        return view('admin.add_category');
+        return view('admin.category.add_category');
     }
 
     //Edit category
@@ -28,7 +28,7 @@ class CategoryController extends Controller
         $count = $all_category->count();
         $count_all = $categories->count();
         if(isset($all_category)){
-            return view('admin.list_category', compact('all_category', 'count', 'count_all'));
+            return view('admin.category.list_category', compact('all_category', 'count', 'count_all'));
         }
         
     }
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     //edit category
     public function editCategory($cat_id){
         $all_category = Category::where('cat_id', $cat_id)->get();
-        return view('admin.edit_category', compact('all_category'));
+        return view('admin.category.edit_category', compact('all_category'));
     }
 
     //update category

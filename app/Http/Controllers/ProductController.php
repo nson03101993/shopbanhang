@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function addProduct(){
         $category = Category::orderBy('cat_id','desc')->get();
         $brand = Brand::orderBy('brand_id','desc')->get();
-        return view('admin.add_product', compact('category','brand'));
+        return view('admin.product.add_product', compact('category','brand'));
     }
 
     //Edit product
@@ -29,7 +29,7 @@ class ProductController extends Controller
         $count = $all_product->count();
         $count_all = $products->count();
         if(isset($all_product)){
-            return view('admin.list_product', compact('all_product', 'count','count_all'));
+            return view('admin.product.list_product', compact('all_product', 'count','count_all'));
         }
         
     }
@@ -101,7 +101,7 @@ class ProductController extends Controller
         $all_category = Category::all();
         $all_brand = Brand::all();
         $all_product = Product::where('product_id',$product_id)->get();
-        return view('admin.edit_product',compact('all_product','all_category','all_brand'));
+        return view('admin.product.edit_product',compact('all_product','all_category','all_brand'));
     }
 
     //update product

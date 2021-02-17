@@ -13,6 +13,6 @@ class OrdersDetails extends Model
 
      //define relationship with orders
      public function orders(){
-         $this->belongsTo(Orders::class, 'orders_id');
+        return $this->belongsTo(Orders::class, 'orders_id');
      }
 }

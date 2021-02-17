@@ -14,11 +14,11 @@ class Orders extends Model
 
     //define relationship with user
     public function user(){
-        $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     //define relationship with product
     public function orders_details(){
-        $this->hasMany(OrdersDetails::class);
+        return $this->hasMany(OrdersDetails::class);
     }
 }

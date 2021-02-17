@@ -15,7 +15,7 @@ class BrandController extends Controller
 {
     //Add brand
     public function addBrand(){
-        return view('admin.add_brand');
+        return view('admin.brand.add_brand');
     }
 
     //Edit brand
@@ -25,7 +25,7 @@ class BrandController extends Controller
         $count = $all_brand->count();
         $count_all = $brands->count();
         if(isset($all_brand)){
-            return view('admin.list_brand', compact('all_brand', 'count', 'count_all'));
+            return view('admin.brand.list_brand', compact('all_brand', 'count', 'count_all'));
         }
         
     }
@@ -83,7 +83,7 @@ class BrandController extends Controller
     //edit brand
     public function editBrand($brand_id){
         $all_brand = Brand::where('brand_id',$brand_id)->get();
-        return view('admin.edit_brand',compact('all_brand'));
+        return view('admin.brand.edit_brand',compact('all_brand'));
     }
 
     //update Brand
