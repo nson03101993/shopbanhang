@@ -9,11 +9,10 @@
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
                     <select class="input-sm form-control w-sm inline v-middle">
-                        <option value="0">Lọc theo tên</option>
-                        <option value="1">Lọc theo mô tả</option>
-                        <option value="2">Lọc theo trạng thái</option>
+                        <option value="0">Tên từ A-Z</option>
+                        <option value="1">Mới nhất</option>
                     </select>
-                    <button class="btn btn-sm btn-default">Lọc</button>
+                    <button class="btn btn-sm btn-default">Sắp xếp theo</button>
                 </div>
                 <div class="col-sm-3">
                     <div class="input-group">
@@ -43,6 +42,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if($count_all == 0)
+                            <script type="text/javascript">alert('Không có đơn hàng nào để hiển thị')</script>
+                        @else
                         @foreach ($all_orders as $key => $items)
                             <tr>
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
@@ -77,6 +79,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

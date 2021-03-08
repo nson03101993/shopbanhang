@@ -11,6 +11,10 @@ class Category extends Model
     protected $table = 'tbl_category';
     protected $primaryKey = 'cat_id';
 
+    protected $fillable = [
+        'cat_name', 'cat_desc', 'cat_status'
+    ];
+
     //define relationship with product
     public function product(){
         $this->hasMany(Product::class);

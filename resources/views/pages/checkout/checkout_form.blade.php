@@ -46,7 +46,7 @@
                                         <h4>{{ $cart->name }}</h4>
                                     </td>
                                     <td class="cart_price">
-                                        <p>{{ number_format($cart->price,0,",",".") }} VNĐ</p>
+                                        <p>{{ Helper::formatPrice($cart->price) }} VNĐ</p>
                                     </td>
                                     <td class="cart_quantity">
                                         <div class="cart_quantity_button">

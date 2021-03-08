@@ -17,7 +17,7 @@
                                 <div class="col-xs-12">
                                     <h3 class="page-header">
                                         <i class="fa fa-globe"></i> Hóa đơn bán hàng
-                                        <small class="pull-right">Ngày tạo: {{ $date_time }}</small>
+                                        <small class="pull-right">Ngày tạo hóa đơn này: {{ $date_time }}</small>
                                     </h3>
                                 </div>                           
                             </div>                
@@ -39,12 +39,12 @@
                                                 <td>{{ $orders->email }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Phone: </th>
+                                                <th>Số điện thoại: </th>
                                                 <td>{{ $orders->phone }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Địa chỉ: </th>
-                                                <td>{{ $orders->customer_name }}</td>
+                                                <th>Địa chỉ giao hàng: </th>
+                                                <td>{{ $orders->address }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -74,12 +74,28 @@
                                             </tr>
                                             <tr>
                                                 <th>Tài khoản đặt hàng: </th>
-                                                <td>968-34567</td>
+                                                <td>{{ $user }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Trạng thái: </th>
                                                 <td>
-                                                    <span class="label label-info">Đang chờ xử lý</span>
+                                                    <span class="label label-info">
+                                                        <?php
+                                                            switch($orders->orders_status){
+                                                                case 1:
+                                                                    echo "Đang xử lí";
+                                                                    break;
+                                                                case 2:
+                                                                    echo "Đang giao";
+                                                                    break;
+                                                                case 3:
+                                                                    echo "Đã giao";
+                                                                    break;
+                                                                default:                                                              
+                                                                    echo "Đã hủy";
+                                                            }
+                                                        ?>
+                                                    </span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -101,25 +117,34 @@
                                                 <th>Số lượng</th>
                                                 <th>Đơn giá</th>
                                                 <th>Giảm giá</th>
-                                                <th>Thành tiền</th>
+                                                <th>Thành Tiền</th>
+                                                <th>Hành Động</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($orders->product as $key => $product)
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{ $key + 1 }}</td>
                                                 <td>
-                                                    <img src="#"
-                                                        alt="SỮA TƯƠI THANH TRÙNG KHÔNG ĐƯỜNG"
+                                                    <img src="{{ asset('public/backend/uploads/product/'.$product->product_image) }}"
+                                                        alt=""
                                                         style=" width: 90px; height: auto; ">
                                                 </td>
                                                 <td>
-                                                    SỮA TƯƠI THANH TRÙNG KHÔNG ĐƯỜNG
+                                                    {{ $product->product_name }}
                                                 </td>
-                                                <td>2</td>
-                                                <td>45.000 ₫</td>
+                                                <td>{{ $product->pivot->quantity }}</td>
+                                                <td>{{ Helper::formatPrice($product->pivot->unit_price) }} VNĐ</td>
                                                 <td>0%</td>
-                                                <td>90.000 ₫</td>
+                                                <td>{{ Helper::formatPrice($product->pivot->quantity * $product->pivot->unit_price) }} VNĐ</td>
+                                                <form action="{{ route('remove_product') }}" method="POST">
+                                                {{ @csrf_field() }}
+                                                <input name="product_id" type="hidden" value="{{ $product->pivot->product_id }}" >
+                                                <input name="orders_id" type="hidden" value="{{ $product->pivot->orders_id }}" >
+                                                <td><button type="submit" class="btn btn-danger btn-sm" onclick="confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng')" >Xóa</button></td>
+                                                </form>
                                             </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -135,16 +160,14 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th><span class="">Lưu ý: </span></th>
-                                                <td></td>
+                                                <th><span class="">Ghi chú giao hàng: </span></th>
+                                                <td>{{ $orders->note }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="row">
-                                        <form action="#" method="POST">
-                                            <input type="hidden" name="_token"
-                                                value=""> <input type="hidden"
-                                                name="_method" value="PUT">
+                                        <form action="{{ route('change_orders_status', ['orders_id' => $orders->orders_id]) }}" method="POST">
+                                            {{ @csrf_field() }}
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label style="margin-bottom: 10px" for="status">Trạng thái</label>
@@ -161,37 +184,50 @@
                                                 <div class="form-group">
                                                     <label style="margin-top: 10px;" for="">&nbsp;</label> <br>
                                                     <button type="submit" class="btn btn-info">Cập nhật trạng thái</button>
-                                                </div>
+                                                </div>                                          
                                             </div>
                                         </form>
                                     </div>
-                                    <br>
-                                    <img src=""
-                                        alt="Visa">
-                                    <img src=""
-                                        alt="Mastercard">
-                                    <img src=""
-                                        alt="American Express">
-                                    <img src=""
-                                        alt="Paypal">
+                                    <br />
+                                    <img class="checkout_icon" src="{{ asset('/public/backend/images/icon/visa.png') }}" alt="Visa">
+                                    <img class="checkout_icon" src="{{ asset('/public/backend/images/icon/mastercard.png') }}" alt="Mastercard">
+                                    <img class="checkout_icon" src="{{ asset('/public/backend/images/icon/american express.png') }}" alt="American Express">
+                                    <img class="checkout_icon" src="{{ asset('/public/backend/images/icon/paypal.png') }}" alt="Paypal">
                                 </div>
                                 <div class="col-xs-6">
-
-
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tbody>
                                                 <tr>
                                                     <th>Tạm tính:</th>
-                                                    <td>90.000 ₫</td>
+                                                    <td> 
+                                                        <?php 
+                                                            $subtotal = explode(".", $orders->orders_subtotal);   
+                                                            echo $subtotal[0];                                               
+                                                        ?> VNĐ
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Thuế:</th>
+                                                    <td>
+                                                        <?php 
+                                                            $taxes = explode(".", $orders->taxes);   
+                                                            echo $taxes[0];                                               
+                                                        ?> VNĐ
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Phí vận chuyển:</th>
-                                                    <td>Free</td>
+                                                    <td>Miễn phí</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Thành tiền:</th>
-                                                    <th>90.000 ₫</th>
+                                                    <th> 
+                                                        <?php 
+                                                            $total = explode(".", $orders->orders_total);
+                                                            echo $total[0];
+                                                        ?> VNĐ
+                                                    </th>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -233,5 +269,29 @@
              
         </div>
     </div>
+    <!-- <script type="text/javascript">
+        $(document).ready(function(){
+            $('.deleteRecord').on('click', function(e){
+                e.preventDefault();
+                var product_id = $(this).data("id");
+                var token = $(this).data("token");
+
+                $.ajax({
+                    url: "remove_product/" + product_id,
+                    type: 'GET',
+                    dataType: "JSON",
+                    data: {
+                        "product_id": product_id,
+                        "_token": token,
+                        "_method": 'GET'
+                    },
+                    success: function(){
+                        console.log('Delete Successfully');
+                    }
+                });
+
+            });
+        });
+    </script> -->
 
 @endsection

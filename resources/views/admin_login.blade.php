@@ -4,8 +4,7 @@
     <title>Dang Nhap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -30,7 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('public/backend/css/font.css') }}" type="text/css" />
     <link href="{{ asset('public/backend/css/font-awesome.css') }}" rel="stylesheet">
     <!-- //font-awesome icons -->
-    <script src="{{ asset('public/backend/js/jquery2.0.3.min.js') }}"></script>
+    <script src="{{ asset('public/backend/js/jquery-3.2.1.min.min.js') }}"></script>
 </head>
 
 <body>

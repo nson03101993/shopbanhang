@@ -22,6 +22,8 @@ class CreateTableOrders extends Migration
             $table->string('address');
             $table->string('note');
             $table->Integer('payment_method');
+            $table->string('orders_subtotal');
+            $table->string('taxes');
             $table->string('orders_total');
             $table->Integer('orders_status');
             $table->timestamps();

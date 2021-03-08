@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleProduct">Ảnh Sản Phẩm</label>
-                                <input type="file" name="product_image" class="form-control" id="product_image">
+                                <input accept="image/*" type="file" name="product_image" class="form-control" id="product_image">
                                 <img style="width: 100px; height: 100px; margin-top: 10px" src="{{asset('public/backend/uploads/product/'.$product->product_image)}}" />
                                 @if ($errors->has('product_image'))
                                 <span class="text-primary"> {{ $errors->first('product_image') }} </span>

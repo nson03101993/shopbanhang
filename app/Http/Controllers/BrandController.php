@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
+use DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\BrandRequest;
 
@@ -19,32 +20,39 @@ class BrandController extends Controller
     }
 
     //Edit brand
-    public function listBrand(){
-        $all_brand = Brand::paginate(3);
-        $brands = Brand::get();
-        $count = $all_brand->count();
-        $count_all = $brands->count();
-        if(isset($all_brand)){
-            return view('admin.brand.list_brand', compact('all_brand', 'count', 'count_all'));
+    public function listBrand(Request $request){
+        $all_brand = Brand::get();
+        if($request->isMethod('post')){
+            $hint = $request->hint;
+            if(isset($hint)){
+                if($hint == 0){
+                    $brand = Brand::orderBy('brand_name', 'ASC')->paginate(5);         
+                }
+                else{
+                    $brand = Brand::orderBy('brand_id', 'DESC')->paginate(5);
+                }
+            }
         }
+        else{
+            $brand = Brand::paginate(5);
+        }
+        $count_all = $all_brand->count();
+        $count = $brand->count();
+        return view('admin.brand.list_brand', compact('brand', 'count', 'count_all'));
         
     }
 
 
     //Save brand
     public function saveBrand(BrandRequest $request){
-        $brand = new Brand;
-        $brand->brand_name = $request->brand_name;
-        $brand->brand_desc = $request->brand_desc;
-        $brand->brand_status = $request->brand_status;
-
-        $query = Brand::where('brand_name',$brand->brand_name)->exists();
+        $query = Brand::where('brand_name', $request->brand_name)->exists();
         if($query == true){
             return redirect()->back()->with('alert','Thương Hiệu Đã Tồn Tại. Vui Lòng Nhập Thương Hiệu Khác.');
         }
         else{
-            $result = $brand->save();
-            if($result){
+            $data = $request->all();
+            $brand = Brand::create($data);
+            if($brand){
                 return redirect()->route('add_brand')
                 ->with('success', 'Đã thêm thương hiệu thành công');
             }

@@ -8,12 +8,14 @@
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
-                    <select class="input-sm form-control w-sm inline v-middle">
-                        <option value="0">Lọc theo tên</option>
-                        <option value="1">Lọc theo mô tả</option>
-                        <option value="2">Lọc theo trạng thái</option>
-                    </select>
-                    <button class="btn btn-sm btn-default">Lọc</button>
+                    <form action="{{ route('list_product') }}" method="POST">
+                        {{ @csrf_field() }}
+                        <select name="hint" class="input-sm form-control w-sm inline v-middle">
+                            <option value="0">Tên từ A-Z</option>
+                            <option value="1">Mới nhất</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-default">Sắp xếp theo</button>
+                    </form>
                 </div>
                 <div class="col-sm-4">
                     @if (Session::has('message'))
@@ -46,20 +48,20 @@
                             <th>Danh Mục</th>
                             <th>Thương Hiệu</th>
                             <th>Trạng thái</th>
-                            <th style="width:30px;"></th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($all_product as $items)
+                        @foreach ($product as $items)
                             <tr>
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                                <td>{{$items->product_name}}</td>
-                                <td>{{number_format($items->product_price,0,",",".")}} VNĐ</td>
-                                <td>{{$items->product_quantity}}</td>
-                                <td><img width="60px" height="60px" src="{{asset('public/backend/uploads/product/'.$items->product_image)}}" /></td>
-                                <td>{!!$items->product_desc!!}</td>
-                                <td>{{$items->category->cat_name}}</td>
-                                <td>{{$items->brand->brand_name}}</td>
+                                <td>{{ $items->product_name }}</td>
+                                <td>{{ Helper::formatPrice($items->product_price) }} VNĐ</td>
+                                <td>{{ $items->product_quantity }}</td>
+                                <td><img width="60px" height="60px" src="{{ asset('public/backend/uploads/product/'.$items->product_image) }}" /></td>
+                                <td>{!! Helper::limitStr($items->product_desc) !!}</td>
+                                <td>{{ $items->category->cat_name }}</td>
+                                <td>{{ $items->brand->brand_name }}</td>
                                 <td>
                                     <?php
                                         if($items->product_status == 0){
@@ -91,7 +93,7 @@
                     </div>
                     <div class="col-sm-5 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                            {{ $all_product->links() }}
+                            {{ $product->links() }}
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">

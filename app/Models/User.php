@@ -11,6 +11,10 @@ class User extends Model
     protected $table = 'tbl_users';
     protected $primaryKey = 'user_id';
 
+    protected $fillable = [
+        'username', 'email', 'password', 'phone'
+    ];
+
     //define relationship with orders
     public function orders(){
         return $this->hasMany(Orders::class);

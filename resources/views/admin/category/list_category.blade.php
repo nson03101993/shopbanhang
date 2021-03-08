@@ -8,12 +8,14 @@
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
-                    <select class="input-sm form-control w-sm inline v-middle">
-                        <option value="0">Lọc theo tên</option>
-                        <option value="1">Lọc theo mô tả</option>
-                        <option value="2">Lọc theo trạng thái</option>
+                    <form action="{{ route('list_category') }}" method="POST" >
+                        {{ @csrf_field() }}
+                    <select name="hint" class="input-sm form-control w-sm inline v-middle">
+                        <option value="0">Tên từ A-Z</option>
+                        <option value="1">Mới nhất</option>
                     </select>
-                    <button class="btn btn-sm btn-default">Lọc</button>
+                    <button type="submit" class="btn btn-sm btn-default">Sắp xếp theo</button>
+                    </form>
                 </div>
                 <div class="col-sm-4">
                     @if (Session::has('message'))
@@ -41,11 +43,11 @@
                             <th>Tên Danh Mục</th>
                             <th>Mô tả</th>
                             <th>Trạng thái</th>
-                            <th style="width:30px;"></th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($all_category as $key => $items)
+                        @foreach ($category as $key => $items)
                             <tr>
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                                 <td>{{$items->cat_name}}</td>
@@ -81,7 +83,7 @@
                     </div>
                     <div class="col-sm-5 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                            {{ $all_category->links() }}
+                            {{ $category->links() }}
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">

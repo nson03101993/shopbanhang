@@ -43,7 +43,7 @@
                                 <p>Mã sản phẩm: 00{{ $product->product_id }}</p>
                                 <img src="{{asset('public/frontend/images/product-details/rating.png')}}" alt="" />
                                 <div>
-                                    <div><h3>Giá: {{ number_format($product->product_price,0,",",".") }}</h3></div>
+                                    <div><h3>Giá: {{ Helper::formatPrice($product->product_price) }}</h3></div>
                                     <input name="product_id" value="{{ $product->product_id }}" type="hidden" />
                                     <div>
                                         <h3>Số lượng: <input style="width: 100px" min="1" type="number" name="product_quantity" value="1" /></h3>

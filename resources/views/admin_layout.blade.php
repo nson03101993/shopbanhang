@@ -4,8 +4,7 @@
     <title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Home :: w3layouts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script type="application/x-javascript">
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
@@ -22,6 +21,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Custom CSS -->
     <link href="{{ asset('public/backend/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('public/backend/css/style-responsive.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('public/backend/pretty-checkbox/dist/pretty-checkbox.css') }}"/>
     <!-- font CSS -->
     <link
         href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
@@ -34,7 +34,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('public/backend/css/monthly.css') }}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
-    <script src="{{ asset('public/backend/js/jquery2.0.3.min.js') }}"></script>
+    <script src="{{ asset('public/backend/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('public/backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('public/backend/js/morris.js') }}"></script>
     <script src="{{ asset('public/ckeditor/ckeditor.js') }}"></script>
@@ -78,9 +78,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
-                            <li><a href="#"><i class=" fa fa-suitcase"></i>Tài Khoản</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i>Cài đặt</a></li>
-                            <li><a href="{{ route('logout') }}""><i class=" fa fa-key"></i> Đăng xuất</a></li>
+                            <li><a href="#"><i class="fa fa-key"></i>Đổi mật khẩu</a></li>
+                            <li><a href="{{ route('logout') }}""><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
@@ -97,7 +96,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a class="active" href="index.html">
+                            <a class="active" href="#">
                                 <i class="fa fa-dashboard"></i>
                                 <span>Tổng quan</span>
                             </a>
@@ -109,8 +108,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Danh Mục</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ route('add_category') }}">Thêm danh mục</a></li>
-                                <li><a href="{{ route('list_category') }}">Danh sách danh mục</a></li>
+                                <li><a href="{{ route('add_category') }}"><i class="fa fa-circle-o"></i>Thêm danh mục</a></li>
+                                <li><a href="{{ route('list_category') }}"><i class="fa fa-circle-o"></i>Danh sách danh mục</a></li>
                             </ul>
                         </li>
                         {{-- End Category --}}
@@ -122,8 +121,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Thương Hiệu</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ route('add_brand') }}">Thêm thương hiệu</a></li>
-                                <li><a href="{{ route('list_brand') }}">Danh sách thương hiệu</a></li>
+                                <li><a href="{{ route('add_brand') }}"><i class="fa fa-circle-o"></i>Thêm thương hiệu</a></li>
+                                <li><a href="{{ route('list_brand') }}"><i class="fa fa-circle-o"></i>Danh sách thương hiệu</a></li>
                             </ul>
                         </li>
                         {{-- End Brand --}}
@@ -135,8 +134,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Sản Phẩm</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ route('add_product') }}">Thêm sản phẩm</a></li>
-                                <li><a href="{{ route('list_product') }}">Danh sách sản phẩm</a></li>
+                                <li><a href="{{ route('add_product') }}"><i class="fa fa-circle-o"></i>Thêm sản phẩm</a></li>
+                                <li><a href="{{ route('list_product') }}"><i class="fa fa-circle-o"></i>Danh sách sản phẩm</a></li>
                             </ul>
                         </li>
                         {{-- End Product --}}
@@ -148,14 +147,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Đơn hàng</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{ route('show_all_orders') }}">Tất cả đơn hàng</a></li>
-                                <li><a href="{{ route('show_orders',1) }}">Đang chờ xử lý</a></li>
-                                <li><a href="{{ route('show_orders',2) }}">Đang giao</a></li>
-                                <li><a href="{{ route('show_orders',3) }}">Đã giao</a></li>
-                                <li><a href="{{ route('show_orders',4) }}">Đã hủy</a></li>
+                                <li><a href="{{ route('show_all_orders') }}"><i class="fa fa-circle-o"></i>Tất cả đơn hàng</a></li>
+                                <li><a href="{{ route('show_orders',1) }}"><i class="fa fa-circle-o"></i>Đang chờ xử lý</a></li>
+                                <li><a href="{{ route('show_orders',2) }}"><i class="fa fa-circle-o"></i>Đang giao</a></li>
+                                <li><a href="{{ route('show_orders',3) }}"><i class="fa fa-circle-o"></i>Đã giao</a></li>
+                                <li><a href="{{ route('show_orders',4) }}"><i class="fa fa-circle-o"></i>Đã hủy</a></li>
                             </ul>
                         </li>
                         {{-- End Orders --}}
+
+                        {{-- News --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-newspaper-o"></i>
+                                <span>Tin tức</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{ route('add_news') }}"><i class="fa fa-circle-o"></i>Thêm bài viết</a></li>
+                                <li><a href="{{ route('add_tags') }}"><i class="fa fa-circle-o"></i>Thêm tags</a></li>
+                                <li><a href="{{ route('list_news') }}"><i class="fa fa-circle-o"></i>Danh sách bài viết</a></li>
+                                <li><a href="{{ route('list_tags') }}"><i class="fa fa-circle-o"></i>Danh sách tags</a></li>
+                            </ul>
+                        </li>
+                        {{-- End News --}}
+
+                        {{-- Customer --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Khách hàng</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Danh sách khách hàng</a></li>
+                            </ul>
+                        </li>
+                        {{-- End Customer --}}
+
+                        {{-- Recycle --}}
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-recycle"></i>
+                                <span>Thùng rác</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Danh mục</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Thương hiệu</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Sản phẩm</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Tin tức</a></li>
+                                <li><a href="{{ route('recycle_tags') }}"><i class="fa fa-circle-o"></i>Tags</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i>Khách hàng</a></li>
+                            </ul>
+                        </li>
+                        {{-- End Recycle --}}
 
                     </ul>
                 </div>
@@ -171,7 +215,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!-- footer -->
             <div class="footer">
                 <div class="wthree-copyright">
-                    <p>© 2017 Visitors. All rights reserved | Design by <a href="#">Nguyễn Ngọc Sơn</a></p>
+                    <p>© 2021 Visitors. All rights reserved | Design by <a href="#">Nguyễn Ngọc Sơn</a></p>
                 </div>
             </div>
             <!-- / footer -->

@@ -15,11 +15,11 @@
                 @endif
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" method="post" action={{ route('save_product') }} enctype="multipart/form-data" >
+                        <form role="form" method="post" action="{{ route('save_product') }}" enctype="multipart/form-data" >
                             {{ csrf_field() }}
                            {!! Session::get('message')  !!}
                             <div class="form-group">
-                                <label for="exampleProduct">Tên Sản Phẩm</label>
+                                <label for="product_name">Tên Sản Phẩm</label>
                                 <input type="text" name="product_name" class="form-control" id="product_name">
                                 @if ($errors->has('product_name'))
                                 <span class="text-primary"> {{ $errors->first('product_name') }} </span>
@@ -56,8 +56,11 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label for="exampleProduct">Ảnh Sản Phẩm</label>
-                                <input type="file" name="product_image" class="form-control" id="product_image">
+                                <label for="product_image">Ảnh Sản Phẩm</label>
+                                <div class="upload-image">
+                                    <img src="{{ asset('public/backend/images/product.png') }}" alt="">
+                                    <input accept="image/*" type="file" name="product_image" class="form-control" id="product_image">
+                                </div>
                                 @if ($errors->has('product_image'))
                                 <span class="text-primary"> {{ $errors->first('product_image') }} </span>
                                 @endif

@@ -32,7 +32,7 @@ Route::get('/admin/login', 'LoginController@getLogin')->name('getLogin')->middle
 Route::post('/login', 'LoginController@postLogin')->name('postLogin')->middleware('throttle:3,1');
 
 
-Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'CheckLogin'], function(){
 
     //dashboard
 
@@ -44,6 +44,8 @@ Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
 
     Route::get('/list_category', 'CategoryController@listCategory')->name('list_category');
 
+    Route::post('/list_category', 'CategoryController@listCategory')->name('list_category');
+
     Route::post('/save_category', 'CategoryController@saveCategory')->name('save_category');
 
     Route::get('/unhide_category/{cat_id}', 'CategoryController@unhideCategory')->name('unhide_category');
@@ -54,7 +56,7 @@ Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
 
     Route::get('/edit_category/{cat_id}', 'CategoryController@editCategory')->name('edit_category');
 
-    Route::post('/update_category/{cat_id}', 'CategoryController@updateCategory')->name('update_category');
+    Route::get('/update_category/{cat_id}', 'CategoryController@updateCategory')->name('update_category');
 
 
     //Brand
@@ -62,6 +64,8 @@ Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
     Route::get('/add_brand', 'BrandController@addBrand')->name('add_brand');
 
     Route::get('/list_brand', 'BrandController@listBrand')->name('list_brand');
+
+    Route::post('/list_brand', 'BrandController@listBrand')->name('list_brand');
 
     Route::post('/save_brand', 'BrandController@saveBrand')->name('save_brand');
 
@@ -75,12 +79,15 @@ Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
 
     Route::post('/update_brand/{brand_id}', 'BrandController@updateBrand')->name('update_brand');
 
+    Route::post('/sort_brand', ['as' => 'sort_brand', 'uses' => 'BrandController@sortBrand' ]);
 
     //Product
 
     Route::get('/add_product', 'ProductController@addProduct')->name('add_product');
 
     Route::get('/list_product', 'ProductController@listProduct')->name('list_product');
+
+    Route::post('/list_product', 'ProductController@listProduct')->name('list_product');
 
     Route::post('/save_product', 'ProductController@saveProduct')->name('save_product');
 
@@ -100,6 +107,42 @@ Route::group(['prefix'=>'admin','middleware' => 'CheckLogin'], function(){
     Route::get('/orders', 'AdminController@showAllOrders')->name('show_all_orders');
 
     Route::get('/details/{orders_id}', ['as' => 'show_details', 'uses' => 'AdminController@showDetails']);
+
+    Route::post('/change_orders_status/{orders_id}', ['as' => 'change_orders_status', 'uses' => 'AdminController@changeOrdersStatus']);
+
+    Route::post('/remove_product', 'AdminController@removeProduct')->name('remove_product');
+
+    //News
+
+    Route::get('/add_news', 'NewsController@addNews')->name('add_news');
+
+    Route::post('/store_news', 'NewsController@storeNews')->name('store_news');
+
+    Route::get('/list_news', 'NewsController@listNews')->name('list_news');
+
+    //Tags
+
+    Route::get('/add_tags', 'NewsController@addTags')->name('add_tags');
+
+    Route::post('/create_new_tags', 'NewsController@createTags')->name('create_tags');
+
+    Route::get('/list_tags', 'NewsController@listTags')->name('list_tags');
+
+    Route::get('/delete_tags/{tags_id}', 'NewsController@deleteTags')->name('delete_tags');
+
+    Route::get('/recycle_tags', 'NewsController@recycleTags')->name('recycle_tags');
+
+    Route::get('/force_delete_tags/{tags_id}', 'NewsController@forceDeleteTags')->name('force_delete_tags');
+
+    Route::get('/restore_tags/{tags_id}', 'NewsController@restoreTags')->name('restore_tags');
+
+    Route::get('/unhide_tags/{tags_id}', 'NewsController@unhideTags')->name('unhide_tags');
+
+    Route::get('/hide_tags/{tags_id}', 'NewsController@hideTags')->name('hide_tags');
+
+
+    //Upload photo
+    Route::post('/upload_photo', 'CKEditorController@uploadPhoto')->name('upload_photo');
 
 });
 

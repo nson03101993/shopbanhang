@@ -23,14 +23,25 @@ class ProductController extends Controller
     }
 
     //Edit product
-    public function listProduct(){
-        $all_product = Product::with(['category','brand'])->paginate(4);
-        $products = Product::with(['category','brand'])->get();
-        $count = $all_product->count();
-        $count_all = $products->count();
-        if(isset($all_product)){
-            return view('admin.product.list_product', compact('all_product', 'count','count_all'));
+    public function listProduct(Request $request){
+        $all_product = Product::with(['category','brand'])->get();
+        if($request->isMethod('post')){
+            $hint = $request->hint;
+            if(isset($hint)){
+                if($hint == 0){
+                    $product = Product::with(['category','brand'])->orderBy('product_name', 'ASC')->paginate(5);         
+                }
+                else{
+                    $product = Product::with(['category','brand'])->orderBy('product_id', 'DESC')->paginate(5);
+                }
+            }
         }
+        else{
+            $product = Product::paginate(5);
+        }
+        $count_all = $all_product->count();
+        $count = $product->count();
+        return view('admin.product.list_product', compact('product', 'count', 'count_all'));
         
     }
 

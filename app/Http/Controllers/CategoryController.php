@@ -22,34 +22,40 @@ class CategoryController extends Controller
     }
 
     //Edit category
-    public function listCategory(){
-        $all_category = Category::paginate(3);
-        $categories = Category::all();
-        $count = $all_category->count();
-        $count_all = $categories->count();
-        if(isset($all_category)){
-            return view('admin.category.list_category', compact('all_category', 'count', 'count_all'));
+    public function listCategory(Request $request){
+        $all_category = Category::get();
+        if($request->isMethod('post')){
+            $hint = $request->hint;
+            if(isset($hint)){
+                if($hint == 0){
+                    $category = Category::orderBy('cat_name', 'ASC')->paginate(5);         
+                }
+                else{
+                    $category = Category::orderBy('cat_id', 'DESC')->paginate(5);
+                }
+            }
         }
+        else{
+            $category = Category::paginate(5);
+        }
+        $count_all = $all_category->count();
+        $count = $category->count();
+        return view('admin.category.list_category', compact('category', 'count', 'count_all'));
         
     }
 
 
     //Save category
     public function saveCategory(CategoryRequest $request){
-        $category = new Category;
-        $category->cat_name = $request->cat_name;
-        $category->cat_desc = $request->cat_desc;
-        $category->cat_status = $request->cat_status;
-
         $query = Category::where('cat_name',$category->cat_name)->exists();
         if($query == true){
             return redirect()->back()->with('alert','Tên Danh Mục Đã Tồn Tại. Vui Lòng Nhập Danh Mục Khác.');
         }
         else{
-            $result = $category->save();
-            if($result){
-            return redirect()->route('add_category')
-            ->with('success', 'Đã thêm danh mục thành công');
+            $data = $request->all();
+            $category = Category::create($data);
+            if($category){
+                return redirect()->route('add_category')->with('success', 'Đã thêm danh mục thành công');
             }
         }
          

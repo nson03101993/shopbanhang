@@ -42,6 +42,8 @@ class CheckOutController extends Controller
             $orders->phone = $request->phone;
             $orders->note = $request->shipping_note;
             $orders->payment_method = $request->payment_method;
+            $orders->orders_subtotal = Cart::subtotal();
+            $orders->taxes = Cart::tax();
             $orders->orders_total = Cart::total();
             $orders->orders_status = "1";
             $result = $orders->save();

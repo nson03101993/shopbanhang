@@ -13,7 +13,7 @@
                         <div class="single-products">                      
                             <div class="productinfo text-center">
                                 <img style="width: 150px; height: 150px" src="{{asset('public/backend/uploads/product/'.$items->product_image)}}" alt="" />
-                                <h2>{{number_format($items->product_price,0,",",".")}} VNĐ</h2>
+                                <h2>{{ Helper::formatPrice($items->product_price) }} VNĐ</h2>
                                 <p>{{$items->product_name}}</p>
                                 <input type="hidden" name="product_id" value="{{ $items->product_id }}" >
                                 <button type="submit" name="submit" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"> Thêm vào giỏ hàng</i></button>
