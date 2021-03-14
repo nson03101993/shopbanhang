@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('sidebar')
 
 @section('main_content')
             <!--product-details-->

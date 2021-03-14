@@ -64,13 +64,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Ngày đặt: </th>
-                                                <td>
-                                                    <?php
-                                                        $time = $orders->created_at;
-                                                        $date = explode(" ", $time);
-                                                        echo $date[0];
-                                                    ?>
-                                                </td>
+                                                <td>{{ Helper::getDate($orders->created_at) }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Tài khoản đặt hàng: </th>

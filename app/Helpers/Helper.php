@@ -17,4 +17,14 @@ class Helper
         return $formatted_str;
     }
 
+    public static function getDate($str){
+        $date = explode(" ", $str);
+        return $date[0];
+    }
+
+    public static function getTime($str){
+        $date = explode(" ", $str);
+        return $date[1];
+    }
+
 }

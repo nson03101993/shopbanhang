@@ -17,7 +17,7 @@ class CheckLogout
     public function handle($request, Closure $next)
     {
         if(Session::get('admin_name')){
-            return redirect()->to('dashboard');
+            return redirect()->to('admin/dashboard');
         }
         else{
             return $next($request);

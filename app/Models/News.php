@@ -12,10 +12,9 @@ class News extends Model
 
     //define table and primary key
     protected $table = 'tbl_news';
-    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'title', 'content', 'status'
+        'title', 'images', 'content', 'status'
     ];
 
     //define relationship with tags;

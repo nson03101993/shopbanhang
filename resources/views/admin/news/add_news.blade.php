@@ -8,7 +8,7 @@
                     Tạo bài viết mới
                 </header>
                 @if (Session::has('success'))
-                    <h3 style="color: red">{{ Session::get('success') }}</h3>
+                    <h3 class="text-danger">{{ Session::get('success') }}</h3>
                 @endif
                 <div class="panel-body">
                     <div class="position-center">
@@ -20,6 +20,16 @@
                                 <input type="text" name="title" class="form-control" id="title">
                                 @if ($errors->has('title'))
                                 <span class="text-primary"> {{ $errors->first('title') }} </span>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="images">Ảnh đại diện</label>
+                                <div class="upload-image">
+                                    <img src="{{ asset('public/backend/images/news.png') }}" alt="">
+                                    <input accept="image/*" type="file" name="images" class="form-control">
+                                </div>
+                                @if ($errors->has('images'))
+                                <span class="text-primary"> {{ $errors->first('images') }} </span>
                                 @endif
                             </div>
                             <div class="form-group">
@@ -35,8 +45,8 @@
                                     @endif
                                 @endforeach
                             </div>
-                            @if ($errors->has('tags_name'))
-                                <span class="text-primary"> {{ $errors->first('tags_name') }} </span>
+                            @if ($errors->has('tags_id'))
+                                <span class="text-primary"> {{ $errors->first('tags_id') }} </span>
                             @endif
                             <div style="margin-top: 10px" class="form-group">
                                 <label for="content">Nội dung bài viết</label>

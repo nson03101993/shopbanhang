@@ -72,7 +72,7 @@
                                         }
                                     ?>
                                 </td>
-                                <td>{{ $items->created_at }}</td>
+                                <td>{{ Helper::getDate($items->created_at) }}</td>
                                 <td>
                                     <a href="#"><i class="fa fa-pencil-square-o text-success"></i></a>
                                     <a onClick="return confirm('Bạn có chắc chắn muốn xoá tin này?')" href="#"><i class="fa fa-trash text-danger"></i></a>
@@ -86,7 +86,7 @@
                 <div class="row">
 
                     <div class="col-sm-3 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} thương hiệu</small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} tin tức</small>
                     </div>
                     <div class="col-sm-5 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">

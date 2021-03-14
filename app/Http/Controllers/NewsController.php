@@ -45,8 +45,24 @@ class NewsController extends Controller
     }
 
     public function storeNews(NewsRequest $request){
-        $data = $request->all();
-        $news = News::create($data);
+        $title = $request->title;
+        $content = $request->content;
+        $status = $request->status;
+
+        //xử lý ảnh
+        $get_image = $request->file('images');
+        $fileExtension = $get_image->getClientOriginalExtension();
+        $fileName = $get_image->getClientOriginalName();
+        $fileRealName = current(explode('.',$fileName));
+        $images = $fileRealName.rand(0,99).'.'.$fileExtension;
+        $get_image->move('public/backend/uploads/news/', $images);
+
+        $news = News::create([
+            'title' => $title,
+            'images' => $images,
+            'content' => $content,
+            'status' => $status,
+        ]);
 
         $news_id = $news->id;
         $tags_id = $request->tags_id;
@@ -57,7 +73,7 @@ class NewsController extends Controller
             ]);
         }
         Session::flash('success', 'Đã thêm tin tức thành công');
-        return redirect()->route('add_tags');
+        return redirect()->route('add_news');
     }
 
     public function listTags(){

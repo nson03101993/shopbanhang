@@ -53,7 +53,7 @@
                                 <td>{{ $items->address }}</td>
                                 <td>{{ $items->phone }}</td>
                                 <td>{{ $items->orders_total }}</td>
-                                <td>{{ $items->created_at }}</td>
+                                <td>{{ Helper::getDate($items->created_at) }}</td>
                                 <td>
                                     <?php
                                         switch($items->orders_status){

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\LogInRequest;
 use DB;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 
@@ -19,13 +20,14 @@ class LoginController extends Controller
 
     //Chuc nang dang nhap
     public function postLogin(LogInRequest $request){
-        $email = $request->email;
+        $admin = Admin::where('email', $request->email)->first();
         $password = $request->password;
-        $result = Admin::where(['email'=>$email, 'password'=>$password])->first();
-        if(isset($result)){
-            Session::put('admin_name',$result->name);
-            Session::put('admin_id',$result->id);
-            return redirect()->to('dashboard');
+        if(isset($admin)){
+            if(Hash::check($password, $admin->password)){
+                Session::put('admin_name', $admin->name);
+                Session::put('admin_id', $admin->id);
+                return redirect()->to('admin/dashboard');
+            }
         }
         else{
             return redirect()->back()

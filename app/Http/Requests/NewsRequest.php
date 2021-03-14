@@ -25,9 +25,10 @@ class NewsRequest extends FormRequest
     {
         return [
             //
-            'title' => 'bail | required | max: 255 ',
+            'title' => 'bail | required | max: 255',
+            'images' => 'bail | required| image',
             'tags_id' => 'bail | required',
-            'content' => 'bail | required ',
+            'content' => 'bail | required',
         ];
     }
 
@@ -35,6 +36,8 @@ class NewsRequest extends FormRequest
         return [
             'title.required' => 'Tiêu đề bài viết không được bỏ trống',
             'title.max' => 'Tiêu đề bài viết không được vượt quá 255 kí tự',
+            'images.required' => 'Chưa chọn ảnh đại diện cho bài viết',
+            'images.image' => 'Định dạng ảnh chưa đúng',
             'tags_id.required' => 'Phải lựa chọn ít nhất 1 tags cho bài viết',
             'content.required' => 'Nội dung bài viết không được bỏ trống',
         ];

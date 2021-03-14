@@ -1,6 +1,6 @@
-@extends('sub_layout')
+@extends('layout')
 
-@section('main_content')
+@section('content')
 
     <section id="form"><!--form-->
         <div class="container">

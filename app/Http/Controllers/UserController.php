@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Requests;
 use App\Models\User;
+use App\Models\News;
+use App\Models\NewsTags;
+use App\Models\Tags;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UserRequest;
 use File;
@@ -61,6 +64,12 @@ class UserController extends Controller
     public function logout(){
         Session::flush();
         return redirect()->route('home_page');
+    }
+
+    //////News
+    public function showNews(){
+        $news = News::where('status', 1)->orderBy('id', 'DESC')->paginate(3);
+        return view('pages.news.show_news', compact('news'));
     }
 
 }

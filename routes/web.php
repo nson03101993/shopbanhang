@@ -199,4 +199,7 @@ Route::post('/add_orders', 'CheckOutController@addOrders')->name('add_orders')->
 
 Route::get('/orders_success', 'CheckOutController@ordersSuccess')->name('orders_success')->middleware('CheckLoginUser');
 
+//News
+
+Route::get('/news/show', ['as' => 'show_news', 'uses' => 'UserController@showNews']);
 

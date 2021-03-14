@@ -12,7 +12,6 @@ class Tags extends Model
 
     //define table and primary key
     protected $table = 'tbl_tags';
-    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name', 'status'

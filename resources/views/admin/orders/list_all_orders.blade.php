@@ -59,7 +59,7 @@
                                         echo $price[0];
                                     ?> VNĐ
                                 </td>
-                                <td>{{ $items->created_at }}</td>
+                                <td>{{ Helper::getDate($items->created_at) }}</td>
                                 <td>
                                     <?php
                                         switch($items->orders_status){

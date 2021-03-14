@@ -125,12 +125,7 @@
 										<li><a href="#">Thanh Toán</a></li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Tin Tức<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="#">Tin Mới Cập Nhật</a></li>
-										<li><a href="#">Tin Xem Nhiều</a></li>
-                                    </ul>
-                                </li> 
+								<li><a href="{{ route('show_news') }}">Tin Tức</a></li> 
 								<li><a href="#" >Hỏi Đáp</a></li>
 								<li><a href="#" >Liên Hệ</a></li>
 							</ul>
@@ -150,117 +145,9 @@
 		</div><!--/header-bottom-->
 	</header><!--/header-->
 	
-	<section id="slider"><!--slider-->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div id="slider-carousel" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-							<li data-target="#slider-carousel" data-slide-to="1"></li>
-							<li data-target="#slider-carousel" data-slide-to="2"></li>
-						</ol>
-						
-						<div class="carousel-inner">
-							<div class="item active">
-								<div class="col-sm-6">
-									<h1><span>SM </span>BISEXUAL SHOP</h1>
-									<h2>Shop phụ kiện điện thoại uy tín nhất <strong>Vịnh Bắc Bộ</strong></h2>
-									<p>Hoàn 2 tỷ USD nếu phát hiện hàng giả hàng nhái hàng kém chất lượng. </p>
-									<button type="button" class="btn btn-default get">Mua Ngay</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="{{asset('public/frontend/images/home/gay_selfie.jpg')}}" class="girl img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>SM </span>BISEXUAL SHOP</h1>
-									<h2>Shop phụ kiện điện thoại đỉnh nhất <strong>Văn Lang</strong></h2>
-									<p>Ưu đãi bốn mùa xuân hạ thu đông. Discount tận đáy hố ga. Sales SML.  </p>
-									<button type="button" class="btn btn-default get">Mua Ngay</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="{{asset('public/frontend/images/home/loa_bluetooth.jpg')}}" class="girl img-responsive" alt="" />
-								</div>
-							</div>
-							
-							<div class="item">
-								<div class="col-sm-6">
-									<h1><span>SM </span>BISEXUAL SHOP</h1>
-									<h2>Shop phụ kiện điện thoại rẻ nhất <strong>Vũ Trụ</strong></h2>
-									<p>Giá rẻ nhất vũ trụ. Tìm được nơi nào bán rẻ hơn tặng ngay sản phẩm.</p>
-									<button type="button" class="btn btn-default get">Mua Ngay</button>
-								</div>
-								<div class="col-sm-6">
-									<img src="{{asset('public/frontend/images/home/op_lung.jpg')}}" class="girl img-responsive" alt="" />
-								</div>
-							</div>
-							
-						</div>
-						
-						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						</a>
-						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						</a>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</section><!--/slider-->
-	
-	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Danh Mục Sản Phẩm</h2>
-						<div class="panel-group category-products" id="accordian"><!--category-productsr-->	
-							@foreach ($category as $items)						
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title"><a href="{{ route('show_cat_product',['cat_id' => $items->cat_id]) }}">{{$items->cat_name}}</a></h4>	
-									</div>
-								</div>	
-							@endforeach						
-						</div><!--/category-products-->
-					
-						<div class="brands_products"><!--brands_products-->
-							<h2>Thương Hiệu</h2>
-							@foreach ($brand as $items)
-								<div class="brands-name">
-									<ul class="nav nav-pills nav-stacked">
-										<li><a href="{{ route('show_brand_product',['brand_id' => $items->brand_id]) }}"> <span class="pull-right">(50)</span>{{$items->brand_name}}</a></li>
-									</ul>
-								</div>
-							@endforeach
-						</div><!--/brands_products-->
-						
-						<div class="price-range"><!--price-range-->
-							<h2>Khoảng Giá</h2>
-							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-							</div>
-						</div><!--/price-range-->
-						
-						<div class="shipping text-center"><!--shipping-->
-							<img src="{{asset('public/frontend/images/home/sub_banner.png')}}" alt="sub_banner" />
-						</div><!--/shipping-->
-					
-					</div>
-				</div>
-				
-				<div class="col-sm-9 padding-right">
-				{{-- Chen trang con ke thua --}}
-					@yield('main_content')
-				</div>
-			</div>
-		</div>
-	</section>
+	@yield('sidebar')
+
+	@yield('content')
 	
 	<footer id="footer"><!--Footer-->
 		<div class="footer-top">
@@ -277,14 +164,14 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="{{asset('public/frontend/images/home/iframe1.png')}}" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe one.gif')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<p>Rẻ nhất</p>
+								<h2>Vịnh Bắc Bộ</h2>
 							</div>
 						</div>
 						
@@ -292,14 +179,14 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="{{asset('public/frontend/images/home/iframe2.png')}}" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe two.gif')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<p>Sales</p>
+								<h2>sập sàn nhà</h2>
 							</div>
 						</div>
 						
@@ -307,14 +194,14 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="{{asset('public/frontend/images/home/iframe3.png')}}" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe three.gif')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<p>Sướng</p>
+								<h2>nhất khi mua ỏ đây</h2>
 							</div>
 						</div>
 						
@@ -322,21 +209,21 @@
 							<div class="video-gallery text-center">
 								<a href="#">
 									<div class="iframe-img">
-										<img src="{{asset('public/frontend/images/home/iframe4.png')}}" alt="" />
+										<img src="{{asset('public/frontend/images/home/iframe four.gif')}}" alt="" />
 									</div>
 									<div class="overlay-icon">
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
+								<p>Trả góp</p>
+								<h2>không giới hạn</h2>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="address">
 							<img src="{{asset('public/frontend/images/home/map.png')}}" alt="" />
-							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
+							<p> 52 chùa Bộc, phường Láng Hạ, New York city </p>
 						</div>
 					</div>
 				</div>
@@ -396,11 +283,11 @@
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<div class="single-widget">
-							<h2>About Shopper</h2>
+							<h2>Về chúng tôi</h2>
 							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
+								<input type="text" placeholder="Điền email vào đây" />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Get the most recent updates from <br />our site and be updated your self...</p>
+								<p>Cập nhật những thông tin hót hòn họt về đồ chơi, phụ kiện dành cho những tín đồ SM</p>
 							</form>
 						</div>
 					</div>

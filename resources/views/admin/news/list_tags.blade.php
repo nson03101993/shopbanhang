@@ -77,7 +77,7 @@
                 <div class="row">
 
                     <div class="col-sm-3 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} thương hiệu</small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} thẻ</small>
                     </div>
                     <div class="col-sm-5 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
