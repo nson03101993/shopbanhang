@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsCommentsTable extends Migration
+class CreateTableComments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateNewsCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_news_comments', function (Blueprint $table) {
+        Schema::create('tbl_comments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('user_id')->on('tbl_users')->onDelete('cascade');
@@ -32,6 +32,6 @@ class CreateNewsCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_news_comments');
+        Schema::dropIfExists('tbl_comments');
     }
 }

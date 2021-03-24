@@ -7,12 +7,16 @@ use Session;
 use App\Http\Requests;
 use App\Models\User;
 use App\Models\News;
+use App\Models\Comments;
 use App\Models\NewsTags;
 use App\Models\Tags;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UserRequest;
 use File;
+use Illuminate\Foundation\Events\Dispatchable;
+use App\Events\NewsViews;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 
 session_start();
 
@@ -53,7 +57,7 @@ class UserController extends Controller
             if(Hash::check($password,$user->password)){
                 Session::put('username',$username);
                 Session::put('user_id',$user->user_id);
-                return redirect()->route('show_cart');
+                return redirect()->route('home_page');
             }
         }
         else{
@@ -72,4 +76,31 @@ class UserController extends Controller
         return view('pages.news.show_news', compact('news'));
     }
 
+    public function showNewsDetails($news_id){
+        $news = News::find($news_id);
+        $comments = Comments::with('user')->where('news_id', $news_id)->orderBy('id', 'DESC')->get();
+        NewsViews::dispatch($news);
+        $latest_news = News::where('status', 1)->orderBy('id', 'DESC')->take(3)->get();
+        $tags = Tags::where('status', 1)->orderBy('id', 'DESC')->get();
+        return view('pages.news.details', compact('news', 'latest_news', 'tags', 'comments'));
+    }
+
+    public function addComments(Request $request){
+        $comments = new Comments;
+        $comments->user_id = Session::get('user_id');
+        $comments->news_id = $request->news_id;
+        $comments->content = $request->content;
+
+        $result = $comments->save();
+        if($result){
+            return redirect()->back()->with('success', 'Đăng bình luận thành công');
+        }
+
+
+    }
+
+    ////////////User
+    public function userProfile(){
+        
+    }
 }

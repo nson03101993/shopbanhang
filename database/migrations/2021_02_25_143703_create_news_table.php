@@ -19,7 +19,7 @@ class CreateNewsTable extends Migration
             $table->string('images');
             $table->text('content');
             $table->Integer('status');
-            $table->Integer('count_views')->nullable();
+            $table->Integer('count_views')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

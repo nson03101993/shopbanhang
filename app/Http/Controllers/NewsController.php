@@ -37,7 +37,7 @@ class NewsController extends Controller
 
     public function listNews(){
         $all_news = News::all();
-        $news = News::orderBy('id', 'DESC')->paginate(3);
+        $news = News::orderBy('id', 'ASC')->paginate(3);
         $count_all = $all_news->count();
         $count = $news->count();
 
@@ -75,6 +75,34 @@ class NewsController extends Controller
         Session::flash('success', 'Đã thêm tin tức thành công');
         return redirect()->route('add_news');
     }
+
+    public function unhideNews($news_id){
+        $news = News::find($news_id);
+        $news->status = 1;
+        $news->save();
+        return redirect()->back()->with('success', 'Đổi trạng thái tin tức thành công');
+    }
+
+    public function hideNews($news_id){
+        $news = News::find($news_id);
+        $news->status = 0;
+        $news->save();
+        return redirect()->back()->with('success', 'Đổi trạng thái tin tức thành công');
+    }
+
+    public function deleteNews($id){
+        $news = News::find($id);
+        $news->delete();
+        return response()->json(['success' => 'Xóa tin tức thành công']);
+    }
+
+    public function editNews($id){
+        $news = News::find($id);
+        $tags = Tags::all();
+        return view('admin.news.edit', compact('news', 'tags'));
+    }
+
+    /////////////////////////Tags
 
     public function listTags(){
         $all_tags = Tags::all();

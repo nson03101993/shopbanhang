@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Tags;
+use App\Models\Comments;
 
 class News extends Model
 {   
@@ -20,5 +21,10 @@ class News extends Model
     //define relationship with tags;
     public function tags(){
         return $this->belongsToMany(Tags::class, 'tbl_news_tags', 'news_id', 'tags_id');
+    }
+
+    //define relationship with comments
+    public function comments(){
+        return $this->hasMany(Comments::class);
     }
 }

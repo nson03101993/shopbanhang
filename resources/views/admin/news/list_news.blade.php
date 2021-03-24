@@ -17,11 +17,11 @@
                     <button type="submit" class="btn btn-sm btn-default">Sắp xếp theo</button>
                     </form>
                 </div>
-                {{-- <div class="col-sm-4">
-                    @if (Session::has('message'))
-                        <h3 class="text-danger">{{ Session::get('message') }}</h3>
+                <div class="col-sm-4">
+                    @if (Session::has('success'))
+                        <h3 class="text-danger">{{ Session::get('success') }}</h3>
                     @endif
-                </div> --}}
+                </div>
                 <div class="col-sm-3">
                     <div class="input-group">
                         <input type="text" class="input-sm form-control">
@@ -42,7 +42,6 @@
                             </th>
                             <th>STT</th>
                             <th>Tiêu đề</th>
-                            <th>Nội dung</th>
                             {{-- <th>Người đăng</th> --}}
                             {{-- <th>Tags</th> --}}
                             {{-- <th>Views</th> --}}
@@ -53,29 +52,28 @@
                     </thead>
                     <tbody>
                         @foreach ($news as $key => $items)
-                            <tr>
+                            <tr id="news_{{ $items->id }}">
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                                 <td>{{ $items->id }}</td>
                                 <td>{{ $items->title }}</td>
-                                <td>{!! Helper::limitStr($items->content) !!}</td>
                                 <td>
                                     <?php
                                         if($items->status == 0){
                                     ?>
-                                        <a href="#"><span style="font-size: 25px; color: red" class="fa fa-thumbs-down"></span></a>
+                                        <a href="{{ route('unhide_news',['news_id' => $items->id]) }}"><span style="font-size: 25px; color: red" class="fa fa-thumbs-down"></span></a>
                                     <?php
                                         }
                                         else{
                                     ?>
-                                        <a href="#"><span style="font-size: 25px; color: blue" class="fa fa-thumbs-up"></span></a>
+                                        <a href="{{ route('hide_news',['news_id' => $items->id]) }}"><span style="font-size: 25px; color: blue" class="fa fa-thumbs-up"></span></a>
                                     <?php
                                         }
                                     ?>
                                 </td>
                                 <td>{{ Helper::getDate($items->created_at) }}</td>
                                 <td>
-                                    <a href="#"><i class="fa fa-pencil-square-o text-success"></i></a>
-                                    <a onClick="return confirm('Bạn có chắc chắn muốn xoá tin này?')" href="#"><i class="fa fa-trash text-danger"></i></a>
+                                    <a href="{{ route('edit_news', ['id' => $items->id]) }}"><i class="fa fa-pencil-square-o text-success"></i></a>
+                                    <a href="javascript:void(0)" onclick="deleteNews({{$items->id}})"><i class="fa fa-trash text-danger"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -101,4 +99,27 @@
             </footer>
         </div>
     </div>
+    <script type="text/javascript">
+        function deleteNews(id){
+            $.ajaxSetup({
+            headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            if(confirm('Bạn có chắc chắn muốn xóa tin tức này?')){
+                $.ajax({
+                    type:'DELETE',
+                    url:'delete/'+id,
+                    success:function(response){
+                        alert(response.success);
+                        $('#news_'+id).remove();
+                    },
+                    error:function(response){
+                        console.log('AJAX failed!');
+                    }
+                })
+            }
+        }
+    </script>
 @endsection

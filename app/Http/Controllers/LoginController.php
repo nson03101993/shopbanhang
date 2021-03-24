@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -25,13 +26,16 @@ class LoginController extends Controller
         if(isset($admin)){
             if(Hash::check($password, $admin->password)){
                 Session::put('admin_name', $admin->name);
-                Session::put('admin_id', $admin->id);
+                Session::put('admin_id', $admin->admin_id);
                 return redirect()->to('admin/dashboard');
+            }
+            else{
+                return redirect()->back()->with('error', 'Sai mật khẩu. Xin vui lòng thử lại');
             }
         }
         else{
             return redirect()->back()
-                ->with('error','Sai tên đăng nhập hoặc mật khẩu. Xin vui lòng thử lại.')
+                ->with('error','Tài khoản không tồn tại. Xin vui lòng thử lại.')
                 ->withInput();
         }
           
@@ -43,5 +47,21 @@ class LoginController extends Controller
        return redirect()->route('getLogin');
     }
 
+    //Chuc nang doi mat khau
+    public function changePassword(Request $request){
+        $new_password = $request->new_password;
+        $confirm_password = $request->confirm_password;    
+        if($new_password == $confirm_password){
+            $admin = Admin::find($request->admin_id);
+            $admin->password = Hash::make($new_password);
+            $result = $admin->save();
+            if($result){
+                return response()->json(['success' => 'Thay đổi password thành công']);
+            }
+        }
+        else{
+            return redirect()->back();
+        }
+    }
     
 }

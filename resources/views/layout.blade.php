@@ -22,6 +22,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('images/ico/apple-touch-icon-114-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('images/ico/apple-touch-icon-72-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" href="{{asset('images/ico/apple-touch-icon-57-precomposed.png')}}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head><!--/head-->
 
 <body>
@@ -90,7 +91,7 @@
 								<li><a href="{{ route('show_cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ Hàng</a></li>
 								<li><a href="{{ route('checkout_form') }}"><i class="fa fa-credit-card"></i> Thanh Toán</a></li>
 								@if(Session::has('username'))
-								<li><a href="{{ route('get_login') }}"><i class="fa fa-user"></i> Xin chào {{ Session::get('username') }}</a></li>
+								<li><a href="{{ route('user_profile') }}"><i class="fa fa-user"></i> Xin chào {{ Session::get('username') }}</a></li>
 								<li><a href="{{ route('user_logout') }}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
 								@else
 								<li><a href="{{ route('get_login') }}"><i class="fa fa-lock"></i> Đăng Nhập</a></li>

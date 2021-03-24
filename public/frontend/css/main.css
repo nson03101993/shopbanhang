@@ -2234,8 +2234,9 @@ h2.title {
 
 .commnets {
   border: 1px solid #F7F7F0;
-  padding: 18px 18px 18px 0;
-  margin-bottom: 50px
+  padding: 18px;
+  margin-bottom: 30px;
+  margin-top: -50px;
 }
 
 .commnets .pull-left {
@@ -2316,7 +2317,7 @@ h2.title {
 .response-area .media {
   border: 1px solid #F7F7F0;
   padding: 18px 18px 18px 0;
-  margin-bottom: 27px
+  margin-bottom: 20px
 }
 
 .response-area .media img{
@@ -2337,7 +2338,7 @@ h2.title {
 .sinlge-post-meta {
   overflow: hidden;
   padding-left: 0;
-  margin-bottom: 15px
+  margin-bottom: 10px
 }
 
 
@@ -2378,7 +2379,6 @@ h2.title {
   font-size: 20px;
   color: #363432;
   margin-top: 0;
-  margin-bottom: 45px
 }
 
 .replay-box label {
@@ -2412,7 +2412,7 @@ h2.title {
 }
 
 .text-area {
-  margin-top: 66px
+  margin-top: 40px
 }
 
 .text-area textarea {

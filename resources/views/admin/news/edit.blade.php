@@ -5,19 +5,15 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Tạo bài viết mới
+                    Chỉnh sửa tin tức
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        @if (Session::has('success'))
-                            <h3 style="margin: 10px 0px; text-align: center" class="text-danger">{{ Session::get('success') }}</h3>
-                        @endif
-                        <form role="form" method="post" action="{{ route('store_news') }}" enctype="multipart/form-data" >
+                        <form role="form" method="post" action="{{ route('update_news') }}" enctype="multipart/form-data" >
                             {{ csrf_field() }}
-                           {!! Session::get('message')  !!}
                             <div class="form-group">
                                 <label for="title">Tiêu đề bài viết</label>
-                                <input type="text" name="title" class="form-control" id="title">
+                                <input type="text" name="title" class="form-control" id="title" value="{{ $news->title }}">
                                 @if ($errors->has('title'))
                                 <span class="text-primary"> {{ $errors->first('title') }} </span>
                                 @endif
@@ -50,7 +46,7 @@
                             @endif
                             <div style="margin-top: 10px" class="form-group">
                                 <label for="content">Nội dung bài viết</label>
-                                <textarea name="content" id="ckeditor1" style="resize: none" rows="8" class="form-control" id="content"></textarea>
+                                <textarea name="content" id="ckeditor1" style="resize: none" rows="8" class="form-control" id="content">{!! $news->content !!}</textarea>
                                 @if ($errors->has('content'))
                                 <span class="text-primary"> {{ $errors->first('content') }} </span>
                                 @endif
@@ -58,8 +54,8 @@
                             <div class="form-group">
                                 <label for="status">Trạng thái bài viết</label>
                                 <select name="status" class="form-control input-sm m-bot15">
-                                    <option value="0">Ẩn</option>
-                                    <option value="1">Hiển thị</option>
+                                    <option <?php if($news->status == 0){ echo 'selected'; } ?> value="0">Ẩn</option>
+                                    <option <?php if($news->status == 1){ echo 'selected'; } ?> value="1">Hiển thị</option>
                                 </select>
                             </div>
                             <button name="submit" type="submit" class="btn btn-info">Thêm</button>

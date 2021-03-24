@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Orders;
+use App\Models\Comments;
 
 class User extends Model
 {
@@ -18,5 +19,10 @@ class User extends Model
     //define relationship with orders
     public function orders(){
         return $this->hasMany(Orders::class);
+    }
+
+    //define relationship with comments
+    public function comments(){
+        return $this->hasMany(Comments::class);
     }
 }

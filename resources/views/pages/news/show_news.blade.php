@@ -59,7 +59,7 @@
                         <img style="width: 50%; height: 50%" class="img-responsive" src="{{ asset('public/backend/uploads/news/'.$items->images) }}" alt="">
                         </div>
                         <p>{!! Str::limit($items->content, 500) !!}</p>
-                        <a  class="btn btn-primary" href="">Đọc thêm</a>
+                        <a class="btn btn-primary" href="{{ route('show_news_details', ['news_id' => $items->id]) }}">Đọc thêm</a>
                     </div>
                     <br />
                     @endforeach

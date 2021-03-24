@@ -18,7 +18,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        'App\Events\NewsViews' => [
+            'App\Listeners\ViewsCounter',
+        ]
     ];
+
+    public function shouldDiscoverEvents(){
+        return true;
+    }
 
     /**
      * Register any events for your application.
@@ -30,5 +37,6 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         //
+        /* Event::listen('news.views', 'App\Events\ViewsCounter'); */
     }
 }

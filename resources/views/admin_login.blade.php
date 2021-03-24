@@ -39,8 +39,8 @@
             <form action="{{ route('postLogin') }}" method="post">
                 {{-- Xu ly viec dang nhap --}}
                 @csrf
-                @if (session('error'))
-                    {{ session('error') }}
+                @if (Session::has('error'))
+                    <p>{{ Session::get('error') }}</p>
                 @endif
                 @if ($errors->has('email'))
                     <h3 class="text-primary">{{$errors->first('email')}}</h3>
