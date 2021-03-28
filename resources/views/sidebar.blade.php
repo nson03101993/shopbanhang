@@ -94,8 +94,12 @@
 						<div class="price-range"><!--price-range-->
 							<h2>Khoảng Giá</h2>
 							<div class="well text-center">
-								<input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								<b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+								<ul class="nav nav-pills nav-stacked">
+									<li><a href="#">Dưới 1 triệu</a></li>
+									<li><a href="#">Từ 1 triệu đến 5 triệu</a></li>
+									<li><a href="#">Từ 5 triệu đến 10 triệu</a></li>
+									<li><a href="#">Trên 10 triệu</a></li>
+								</ul>
 							</div>
 						</div><!--/price-range-->
 						

@@ -28,8 +28,11 @@
                                     <img src="{{ asset('public/backend/images/news.png') }}" alt="">
                                     <input accept="image/*" type="file" name="images" class="form-control">
                                 </div>
-                                @if ($errors->has('images'))
+                                {{-- @if ($errors->has('images'))
                                 <span class="text-primary"> {{ $errors->first('images') }} </span>
+                                @endif --}}
+                                @if (Session::has('alert'))
+                                <span class="text-primary"> {{ Session::get('alert') }} </span>
                                 @endif
                             </div>
                             <div class="form-group">

@@ -8,17 +8,21 @@ use GrahamCampbell\Throttle\Facades\Throttle;
     
     //Cart
 
-    Route::post('/save_cart', 'CartController@saveCart')->name('save_cart');
+    Route::group(['prefix' => 'cart'], function(){
 
-    Route::get('/show_cart', 'CartController@showCart')->name('show_cart');
+        Route::post('/save', 'CartController@saveCart')->name('save_cart');
 
-    Route::post('/save_cart_direct', 'CartController@saveCartDirect')->name('save_cart_direct');
+        Route::get('/show', 'CartController@showCart')->name('show_cart');
 
-    Route::get('/delete_cart/{rowId}', 'CartController@deleteCart')->name('delete_cart');
+        Route::post('/save_direct', 'CartController@saveCartDirect')->name('save_cart_direct');
 
-    Route::get('/delete_all_cart', 'CartController@deleteAllCart')->name('delete_all_cart');
+        Route::get('/delete/{rowId}', 'CartController@deleteCart')->name('delete_cart');
 
-    Route::post('/update_cart', 'CartController@updateCart')->name('update_cart');
+        Route::get('/delete_all', 'CartController@deleteAllCart')->name('delete_all_cart');
+
+        Route::post('/update', 'CartController@updateCart')->name('update_cart');
+
+    });
 
     //Register, Login, Logout
 
@@ -44,19 +48,31 @@ use GrahamCampbell\Throttle\Facades\Throttle;
 
     Route::get('/checkout_form', 'CheckOutController@checkOutForm')->name('checkout_form');
 
-    Route::post('/add_orders', 'CheckOutController@addOrders')->name('add_orders')->middleware('CheckLoginUser');
+    Route::post('/orders/add', 'CheckOutController@addOrders')->name('add_orders')->middleware('CheckLoginUser');
 
-    Route::get('/orders_success', 'CheckOutController@ordersSuccess')->name('orders_success')->middleware('CheckLoginUser');
+    Route::get('/orders/success', 'CheckOutController@ordersSuccess')->name('orders_success')->middleware('CheckLoginUser');
 
     //News
 
-    Route::get('/news/show', ['as' => 'show_news', 'uses' => 'UserController@showNews']);
+    Route::group(['prefix' => 'news'], function(){
 
-    Route::get('/news/details/{news_id}', ['as' => 'show_news_details', 'uses' => 'UserController@showNewsDetails' ]);
+        Route::get('/show', ['as' => 'show_news', 'uses' => 'UserController@showNews']);
 
-    Route::post('/news/comments/add', 'UserController@addComments')->name('add_comments')->middleware('CheckLoginUser');
+        Route::get('/details/{news_id}', ['as' => 'show_news_details', 'uses' => 'UserController@showNewsDetails' ]);
+
+        Route::post('/comments/add', 'UserController@addComments')->name('add_comments')->middleware('CheckLoginUser');
+
+    });
 
     //User
 
-    Route::get('/profile', ['as' => 'user_profile', 'uses' => 'UserController@userProfile']);
+    Route::group(['prefix' => 'profile'], function(){
+
+        Route::get('/details/{user_id}', ['as' => 'user_profile', 'uses' => 'UserController@userProfile']);
+
+        Route::post('/update', 'UserController@updateProfile')->name('update_profile');
+
+    });
+    
+  
 

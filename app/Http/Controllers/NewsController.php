@@ -91,15 +91,41 @@ class NewsController extends Controller
     }
 
     public function deleteNews($id){
-        $news = News::find($id);
-        $news->delete();
+        News::destroy($id);
         return response()->json(['success' => 'Xóa tin tức thành công']);
     }
 
     public function editNews($id){
         $news = News::find($id);
         $tags = Tags::all();
-        return view('admin.news.edit', compact('news', 'tags'));
+        return view('admin.news.edit_news', compact('news', 'tags'));
+    }
+
+    public function updateNews(NewsRequest $request){
+        $id = $request->id;
+        $news = News::find($id);
+        if($news->images && !$request->hasFile('images')){
+            
+        }
+        
+    }
+
+    public function recycleNews(){
+        $all_news = News::onlyTrashed()->get();
+        $news = News::onlyTrashed()->paginate(3);
+        $count_all = $all_news->count();
+        $count = $news->count();
+        return view('admin.news.recycle_news', compact('news', 'count', 'count_all'));
+    }
+
+    public function restoreNews($id){
+        $news = News::withTrashed()->find($id)->restore();
+        return redirect()->back()->with('message', 'Đã khôi phục tin tức thành công');
+    }
+
+    public function forceDeleteNews($id){
+        News::withTrashed()->find($id)->forceDelete();
+        return response()->json(['success' => 'Đã xóa tin tức thành công.']);
     }
 
     /////////////////////////Tags

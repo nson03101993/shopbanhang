@@ -7,6 +7,8 @@ use Session;
 use App\Http\Requests;
 use App\Models\User;
 use App\Models\News;
+use App\Models\Category;
+use App\Models\Brand;
 use App\Models\Comments;
 use App\Models\NewsTags;
 use App\Models\Tags;
@@ -55,8 +57,8 @@ class UserController extends Controller
         $user = User::where('username',$username)->first();
         if($user){
             if(Hash::check($password,$user->password)){
-                Session::put('username',$username);
-                Session::put('user_id',$user->user_id);
+                Session::put('username', $username);
+                Session::put('user_id', $user->user_id);
                 return redirect()->route('home_page');
             }
         }
@@ -100,7 +102,37 @@ class UserController extends Controller
     }
 
     ////////////User
-    public function userProfile(){
+    public function userProfile($user_id){
+        $category = Category::where('cat_status','1')->orderBy('cat_id','desc')->get();
+        $brand = Brand::where('brand_status','1')->orderBy('brand_id','desc')->get();
+        $user = User::find($user_id);
+        return view('pages.user.profile', compact('category', 'brand', 'user'));
+    }
+
+    public function updateProfile(Request $request){
+        $user_id = $request->user_id;
         
+        $user = User::find($user_id);
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->password = Hash::make($request->password);
+        if($request->hasFile('avatar')){
+            $get_image = $request->file('avatar');
+            $fileExtension = $get_image->getClientOriginalExtension();
+            $fileName = $get_image->getClientOriginalName();
+            $fileRealName = current(explode('.',$fileName));
+            $images = $fileRealName.rand(0,99).'.'.$fileExtension;
+            $get_image->move('public/frontend/images/user/', $images);
+
+            //
+            $user->avatar = $images;
+            $user->save();
+            return redirect()->back()->with('success', 'Cập nhật tài khoản thành công');
+        }
+        else{
+            $user->save();
+            return redirect()->back()->with('success', 'Cập nhật tài khoản thành công');
+        }
     }
 }

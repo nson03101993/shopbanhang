@@ -91,7 +91,7 @@
 								<li><a href="{{ route('show_cart') }}"><i class="fa fa-shopping-cart"></i> Giỏ Hàng</a></li>
 								<li><a href="{{ route('checkout_form') }}"><i class="fa fa-credit-card"></i> Thanh Toán</a></li>
 								@if(Session::has('username'))
-								<li><a href="{{ route('user_profile') }}"><i class="fa fa-user"></i> Xin chào {{ Session::get('username') }}</a></li>
+								<li><a href="{{ route('user_profile',['user_id' => Session::get('user_id')]) }}"><i class="fa fa-user"></i> Xin chào {{ Session::get('username') }}</a></li>
 								<li><a href="{{ route('user_logout') }}"><i class="fa fa-sign-out"></i> Đăng Xuất</a></li>
 								@else
 								<li><a href="{{ route('get_login') }}"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
@@ -236,55 +236,41 @@
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>Service</h2>
+							<h2>Dịch vụ</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Online Help</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Order Status</a></li>
-								<li><a href="#">Change Location</a></li>
-								<li><a href="#">FAQ’s</a></li>
+								<li><a href="#">Trợ giúp online</a></li>
+								<li><a href="#">Liên hệ chúng tôi</a></li>
+								<li><a href="#">Hỏi đáp</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>Quock Shop</h2>
+							<h2>Chính sách</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">T-Shirt</a></li>
-								<li><a href="#">Mens</a></li>
-								<li><a href="#">Womens</a></li>
-								<li><a href="#">Gift Cards</a></li>
-								<li><a href="#">Shoes</a></li>
+								<li><a href="#">Điều khoản sử dụng</a></li>
+								<li><a href="#">Chính sách hoàn trả</a></li>
+								<li><a href="#">Chính sách bảo mật</a></li>
+								<li><a href="#">Hệ thống thanh toán</a></li>
+								<li><a href="#">Khuyến mãi</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="single-widget">
-							<h2>Policies</h2>
+							<h2>Về chúng tôi</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Privecy Policy</a></li>
-								<li><a href="#">Refund Policy</a></li>
-								<li><a href="#">Billing System</a></li>
-								<li><a href="#">Ticket System</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>About Shopper</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Company Information</a></li>
-								<li><a href="#">Careers</a></li>
-								<li><a href="#">Store Location</a></li>
-								<li><a href="#">Affillate Program</a></li>
+								<li><a href="#">Thông tin công ty</a></li>
+								<li><a href="#">Thông tin tuyển dụng</a></li>
+								<li><a href="#">Hệ thống cửa hàng</a></li>
+								<li><a href="#">Chương trình đối tác</a></li>
 								<li><a href="#">Copyright</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<div class="single-widget">
-							<h2>Về chúng tôi</h2>
+							<h2>Nhận ngay thông tin mới nhất</h2>
 							<form action="#" class="searchform">
 								<input type="text" placeholder="Điền email vào đây" />
 								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>

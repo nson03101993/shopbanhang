@@ -20,7 +20,9 @@ class HomeController extends Controller
         $brand = Brand::where('brand_status','1')->orderBy('brand_id','desc')->get();
         $sub_brand = Brand::where('brand_status','1')->orderBy('brand_id','asc')->limit(5)->get();
         $product = Product::where('product_status','1')->orderBy('product_id','desc')->limit(5)->get();
-        return view('pages.home', compact('category', 'brand', 'sub_brand', 'product'));
+        $hot_product1 = Product::orderBy('product_price', 'ASC')->limit(3)->get();
+        $hot_product2 = Product::orderBy('product_price', 'DESC')->limit(3)->get();
+        return view('pages.home', compact('category', 'brand', 'sub_brand', 'product', 'hot_product1', 'hot_product2'));
     }
 
     public function searchByKeywords(Request $request){
@@ -29,5 +31,10 @@ class HomeController extends Controller
         $keywords = $request->keywords;
         $search_result = Product::where('product_name','like','%'.$keywords.'%')->get();
         return view('pages.search.keywords', compact('category', 'brand', 'keywords', 'search_result'));
+    }
+
+    /////Page not found
+    public function notFound(){
+        return view('errors.404');
     }
 }

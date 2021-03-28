@@ -129,6 +129,14 @@ Route::group(['middleware' => 'CheckLogin'], function(){
 
         Route::post('/update', 'NewsController@updateNews')->name('update_news');
 
+        Route::get('/recycle', 'NewsController@recycleNews')->name('recycle_news');
+
+        Route::delete('/force_delete/{id}', 'NewsController@forceDeleteNews')->name('force_delete_news');
+
+        /* Route::get('/force_delete/{id}', 'NewsController@forceDeleteNews')->name('force_delete_news'); */
+
+        Route::get('/restore/{id}', 'NewsController@restoreNews')->name('restore_news');
+
     });
 
     //Tags

@@ -9,8 +9,12 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
+                        @if (Session::has('success'))
+                            <h3 style="margin: 10px 0px; text-align: center" class="text-danger">{{ Session::get('success') }}</h3>
+                        @endif
                         <form role="form" method="post" action="{{ route('update_news') }}" enctype="multipart/form-data" >
                             {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ $news->id }}" />
                             <div class="form-group">
                                 <label for="title">Tiêu đề bài viết</label>
                                 <input type="text" name="title" class="form-control" id="title" value="{{ $news->title }}">
@@ -24,6 +28,7 @@
                                     <img src="{{ asset('public/backend/images/news.png') }}" alt="">
                                     <input accept="image/*" type="file" name="images" class="form-control">
                                 </div>
+                                <span><img style="width: 100px; height: 100px; margin-top: 10px;" src="{{asset('public/backend/uploads/news/'.$news->images)}}" /><p>{{ $news->images }}</p></span>
                                 @if ($errors->has('images'))
                                 <span class="text-primary"> {{ $errors->first('images') }} </span>
                                 @endif
@@ -33,7 +38,15 @@
                                 @foreach ($tags as $tag)
                                     @if ($tag->status == 1)
                                         <div class="pretty p-default p-curve">
-                                            <input type="checkbox" name="tags_id[]" value="{{ $tag->id }}" />
+                                            <input type="checkbox" name="tags_id[]" value="{{ $tag->id }}" 
+                                                <?php
+                                                    foreach($news->tags as $tags){
+                                                        if($tags->name == $tag->name ){
+                                                            echo 'checked';
+                                                        }
+                                                    }
+                                                ?>
+                                            />
                                             <div class="state">
                                                 <label>{{ $tag->name }}</label>
                                             </div>

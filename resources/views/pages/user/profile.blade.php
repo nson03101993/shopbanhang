@@ -4,61 +4,57 @@
 
 <div id="account-page">
 	<div class="container">
-		<div class="account-box">
-			<h1>Thu Minh</h1>
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+            <li><a href="#">Trang Chủ</a></li>
+            <li class="active">Thông tin tài khoản</li>
+            </ol>
+        </div>
+        @if (Session::has('success'))
+            <div style="font-size: 30px" class="alert alert-info">{{ Session::get('success') }}</div>
+        @endif
+		<div style="border: 1px solid #e5e5e5; padding: 20px 15px" class="account-box">
 			<div class="row">
 				<div class="col-md-9">
 					<div class="details-account">
-                        <h4>Thông tin tài khoản</h4>
                         <div class="box-content">
                             <div class="row">
-                                <form method="POST" action="#" id="formUpdateInfoUser" enctype="multipart/form-data">
+                                <form id="form_submit" method="POST" action="{{ route('update_profile') }}" id="formUpdateInfoUser" enctype="multipart/form-data">
+                                    {{ @csrf_field() }}
+                                    <input name="user_id" type="hidden" value="{{ $user->user_id }}">
                                     <div class="col-md-7">
-                                        {{ @csrf_token }}
-                                        <input type="hidden" name="_method" value="PUT">                                            
-                                        <input type="hidden" name="id" value="62">
-                                        <label for="name" class="label-register">Họ và tên <span class="red">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="Họ và tên"  autocapitalize="words" value="Thu Minh">
-                                        <label class="error"></label>
-                                        <br>
-
                                         <label for="username" class="label-register">UserName <span class="red">*</span></label>
-                                        <input type="text" name="username" id="username" class="form-control" placeholder="UserName"  autocapitalize="words" value="thuminh">
-                                        <label class="error"></label>
+                                        <input type="text" name="username" id="username" class="form-control" placeholder="UserName"  autocapitalize="words" value="{{ $user->username }}">
                                         <br>
                                         <label for="phone" class="label-register">Phone</label>
-                                        <input type="text" placeholder="Phone" class="form-control "  disabled="" value="0977036293">
+                                        <input name="phone" type="text" placeholder="Phone" class="form-control" value="{{ $user->phone }}">
                                         <br>
                                         <label for="email" class="label-register">Email</label>
-                                        <input type="email" placeholder="Email" class="form-control "  disabled="" value="thuminh@gmail.com">
+                                        <input name="email" type="email" placeholder="Email" class="form-control" value="{{ $user->email }}">
                                         <br>
-                                        <label for="address" class="label-register">Địa chỉ <span class="red">*</span></label>
-                                        <input type="text" name="address" id="address" placeholder="Địa chỉ" class="form-control "  autocorrect="off" autocapitalize="off" value="Hà Nội Hải Phòng Nghệ An">
-                                        <label class="error"></label>
-                                        <br>
-                                        <input type="checkbox" id="changePassword"> <label for="chkChangePassword" class="label-register">Thay đổi mật khẩu </label>
+                                        <input type="checkbox" id="changePassword"> <label for="ChangePassword" class="label-register">Thay đổi mật khẩu </label>
                                         <br>
                                         <div style="display: none" id="blockPassword">
-                                            <label for="password" class="label-register">Password <span class="red">*</span></label>
-                                            <input type="password" name="password" id="password" placeholder="Password" class="form-control ">
-                                            <label class="error"></label>
+                                            <label for="password" class="label-register">Mật khẩu mới <span class="red">*</span></label>
+                                            <input onfocus="this.value=''" type="password" name="password" id="password" placeholder="Password" class="form-control">
                                             <br>
-                                            <label for="password_confirm" class="label-register">Password Confirm <span class="red">*</span></label>
-                                            <input type="password" name="password_confirm" id="password_confirm" placeholder="Password Confirm" class="form-control ">
-                                            <label class="error"></label>
+                                            <label for="password_confirm" class="label-register">Xác nhận lại mật khẩu <span class="red">*</span></label>
+                                            <input onfocus="this.value=''" type="password" name="password_confirm" id="password_confirm" placeholder="Password Confirm" class="form-control ">
                                         </div>
                                         <br>
                                         <p>
-                                            <input type="submit" value="Cập nhật" class="btn btn-warning">
+                                            <input name="submit" type="submit" value="Cập nhật" class="btn btn-warning">
                                         </p>
                                     </div>
                                     <div class="col-md-offset-1 col-md-3">
                                         <div class="upload-image">
-                                            <img src="http://websitebansua.test/images/employee.png" title="Thu Minh" alt="Thu Minh" style="max-width: 100%;border-radius: 50%;width: 130px;height: 130px;">
-                                            <input name="avatar" type="file" accept="image/*" class="custom-file-input">
+                                            @if ($user->avatar)
+                                            <img id="preview" src="{{ asset('public/frontend/images/user/'.$user->avatar) }}" title="Thu Minh" alt="Thu Minh">
+                                            @else
+                                            <img id="preview" src="{{ asset('public/frontend/images/user/avatar.png') }}" title="Thu Minh" alt="Thu Minh">
+                                            @endif
+                                            <input id="avatar" name="avatar" type="file" accept="image/*" class="custom-file-input">
                                         </div>
-                                        <label id="avatar-error" class="error" for="avatar"></label>
-                                        <small class="text-danger"></small>
                                     </div>
                                 </form>
                             </div>
@@ -82,5 +78,30 @@
     });
 </script>
 
+<script type="text/javascript">
+    function previewImg(input){
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#avatar').change(function(){
+        previewImg(this);
+    });
+</script>
+
+<script type="text/javascript">
+    $('#form_submit').on('submit', function(){
+        if($('#password').val() != $('#password_confirm').val()){
+            alert('Xác nhận mật khẩu mới chưa trùng khớp. Xin vui lòng thử lại');
+            return false;
+        }
+    });
+</script>
 
 @endsection

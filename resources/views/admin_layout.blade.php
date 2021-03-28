@@ -202,7 +202,7 @@
                                 <li><a href="#"><i class="fa fa-circle-o"></i>Thương hiệu</a></li>
                                 <li><a href="#"><i class="fa fa-circle-o"></i>Sản phẩm</a></li>
                                 <li><a href="#"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Tin tức</a></li>
+                                <li><a href="{{ route('recycle_news') }}"><i class="fa fa-circle-o"></i>Tin tức</a></li>
                                 <li><a href="{{ route('recycle_tags') }}"><i class="fa fa-circle-o"></i>Tags</a></li>
                                 <li><a href="#"><i class="fa fa-circle-o"></i>Khách hàng</a></li>
                             </ul>

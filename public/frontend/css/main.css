@@ -2670,3 +2670,17 @@ h2.title {
   color: #696763;
   margin-top: 20px;
 }
+
+.upload-image input{
+  color: #fff; 
+  margin-top: 15px; 
+  width: 133px; 
+  height: 30px;
+}
+
+.upload-image img{
+  max-width: 100%;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+}
