@@ -31,7 +31,7 @@ class ProductRequest extends FormRequest
             'product_name' => 'bail | required | max: 30 | unique:tbl_product,product_name,'.$product_id.',product_id',
             'product_desc' => 'bail | required | max: 255',
             'product_content' => 'bail | required | max: 500',
-            'product_image' => 'bail | nullable | image',
+            'product_image' => 'bail | nullable | image | max: 4048',
             'product_price' => 'bail | required',
             'product_quantity' => 'bail | required | min: 1',
         ];
@@ -47,6 +47,7 @@ class ProductRequest extends FormRequest
             'product_content.required' => 'Nội dung sản phẩm không được để trống',
             'product_content.max' => "Nội dung sản phẩm không được vượt quá 500 kí tự", 
             'product_image.image' => "Ảnh của sản phẩm chưa đúng định dạng hỗ trợ (jpeg, png, bmp, gif, svg, webp)",
+            'product_image.max' => "Dung lượng ảnh không được vượt quá 4MB",
             'product_price.required' => "Giá sản phẩm không được để trống",
             'product_quantity.required' => "Số lượng sản phẩm không được để trống",
             'product_quantity.min' => "Số lượng tồn kho thấp nhất là 1",

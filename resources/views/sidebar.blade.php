@@ -83,11 +83,11 @@
 						<div class="brands_products"><!--brands_products-->
 							<h2>Thương Hiệu</h2>
 							@foreach ($brand as $items)
-								<div class="brands-name">
-									<ul class="nav nav-pills nav-stacked">
-										<li><a href="{{ route('show_brand_product',['brand_id' => $items->brand_id]) }}"> <span class="pull-right">(50)</span>{{$items->brand_name}}</a></li>
-									</ul>
-								</div>
+									<div class="brands-name">
+										<ul class="nav nav-pills nav-stacked">
+											<li><a href="{{ route('show_brand_product',['brand_id' => $items->brand_id]) }}"> <span class="pull-right"><i class="fa fa-eye" aria-hidden="true"></i></span>{{$items->brand_name}}</a></li>
+										</ul>
+									</div>
 							@endforeach
 						</div><!--/brands_products-->
 						
@@ -95,10 +95,10 @@
 							<h2>Khoảng Giá</h2>
 							<div class="well text-center">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#">Dưới 1 triệu</a></li>
-									<li><a href="#">Từ 1 triệu đến 5 triệu</a></li>
-									<li><a href="#">Từ 5 triệu đến 10 triệu</a></li>
-									<li><a href="#">Trên 10 triệu</a></li>
+									<li><a href="{{ route('search.price', ['range' => 1]) }}" >Dưới 1 triệu</a></li>
+									<li><a href="{{ route('search.price', ['range' => 2]) }}" >Từ 1 triệu đến 5 triệu</a></li>
+									<li><a href="{{ route('search.price', ['range' => 3]) }}" >Từ 5 triệu đến 10 triệu</a></li>
+									<li><a href="{{ route('search.price', ['range' => 4]) }}" >Trên 10 triệu</a></li>
 								</ul>
 							</div>
 						</div><!--/price-range-->

@@ -37,28 +37,32 @@
     <div class="category-tab">
         <div class="col-sm-12">
             <ul class="nav nav-tabs">
-                @foreach ($sub_brand as $key => $items)
+                @foreach ($brand as $key => $items)
                     <li class="<?php if($key == 0){ echo "active"; } ?>" ><a href="#{{ $items->brand_id }}" data-toggle="tab">{{ $items->brand_name }}</a></li> 
                 @endforeach
             </ul>
         </div>
+
         
             <div class="tab-content">
-                @foreach ($sub_brand as $key => $items)
+                @foreach ($brand as $key => $items)
                 <div class="tab-pane fade <?php if($key == 0){ echo "active in"; } ?>" id="{{ $items->brand_id }}">
-                    <div class="col-sm-3">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="{{ 'public/frontend/images/home/gallery1.jpg' }}" alt="" />
-                                    <h2>{{ $items->brand_name }}</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to
-                                        cart</a>
+                    @foreach ($brand_prd as $prd)
+                        @if ($prd->brand_id == $items->brand_id)
+                            <div class="col-sm-3">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img style="padding: 10px" src="{{ 'public/backend/uploads/product/'.$prd->product_image }}" alt="" />
+                                            <h2>{{ $prd->product_name }}</h2>
+                                            <p>{{ Helper::formatPrice($prd->product_price) }} VNĐ</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endforeach
                 </div>
                 @endforeach   
             </div>

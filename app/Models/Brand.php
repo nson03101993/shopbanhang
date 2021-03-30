@@ -20,6 +20,6 @@ class Brand extends Model
 
     //define relationship with product
     public function product(){
-        $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'product_id');
     }
 }

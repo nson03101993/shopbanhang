@@ -40,7 +40,9 @@ use GrahamCampbell\Throttle\Facades\Throttle;
 
     //Search
 
-    Route::post('/search_by_keywords', 'HomeController@searchByKeywords')->name('search_by_keywords');
+    Route::post('/search/keywords', 'HomeController@searchByKeywords')->name('search_by_keywords');
+
+    Route::get('/search/price/{range}', 'HomeController@searchByPrice')->name('search.price');
 
     //Orders
 
@@ -73,6 +75,10 @@ use GrahamCampbell\Throttle\Facades\Throttle;
         Route::post('/update', 'UserController@updateProfile')->name('update_profile');
 
     });
+
+    //Review product
+
+    Route::post('/product/reviews', 'UserController@productReviews')->name('product.reviews');
     
   
 
