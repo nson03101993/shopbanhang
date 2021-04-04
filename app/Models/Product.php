@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Orders;
+use willvincent\Rateable\Rateable;
 
 class Product extends Model
-{
+{   
+    use Rateable;
+
     //define table and primary key
     protected $table = 'tbl_product';
     protected $primaryKey = 'product_id';

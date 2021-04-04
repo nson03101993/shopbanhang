@@ -114,8 +114,9 @@ class CategoryController extends Controller
     public function showCatProduct($cat_id){
         $category = Category::where('cat_status','1')->orderBy('cat_id','desc')->get();
         $brand = Brand::where('brand_status','1')->orderBy('brand_id','desc')->get();
-        $product = Product::with('category')->where('cat_id',$cat_id)->get();
-        return view('pages.category.cat_product', compact('category', 'brand', 'product'));
+        $product = Product::with('category')->where('cat_id', $cat_id)->get();
+        $cat_prd = Category::find($cat_id);
+        return view('pages.category.cat_product', compact('category', 'brand', 'product', 'cat_prd'));
     }
     
 }

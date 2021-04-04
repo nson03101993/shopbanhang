@@ -8,9 +8,11 @@ use App\Http\Requests;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProductRequest;
 use File;
+use Image;
 
 class ProductController extends Controller
 {   
@@ -60,12 +62,20 @@ class ProductController extends Controller
 
         /* Xử lý ảnh */
         $get_image = $request->file('product_image');
+        $images = array();
         if(isset($get_image)){
-            $fileExtension = $get_image->getClientOriginalExtension();
-            $fileName = $get_image->getClientOriginalName();
-            $fileRealName = current(explode('.',$fileName));
-            $product->product_image = $fileRealName.rand(0,99).'.'.$fileExtension;
-            $get_image->move('public/backend/uploads/product/',$product->product_image);
+            foreach($get_image as $image){
+                $fileExtension = $image->getClientOriginalExtension();
+                $fileName = $image->getClientOriginalName();
+                $fileRealName = current(explode('.',$fileName));
+                $name = $fileRealName.rand(0,99).'.'.$fileExtension;
+                $image->move('public/backend/uploads/product/', $name);
+                $thumbnails = Image::make('public/backend/uploads/product/'.$name)
+                ->resize(400, 350)
+                ->save('public/backend/uploads/thumbnails/'.$name, 60, 'jpg');
+                $images[] = $name;
+            }
+            $product->product_image = json_encode($images);
             $result = $product->save();
             if($result){
                 return redirect()->route('add_product')->with('success', 'Đã thêm sản phẩm thành công');
@@ -74,6 +84,24 @@ class ProductController extends Controller
         else{
             return redirect()->back()->with('message','Đối với sản phẩm mới xin vui lòng chọn ảnh để upload')->withInput();
         }
+
+
+        /* if(isset($get_image)){
+            $fileExtension = $get_image->getClientOriginalExtension();
+            $fileName = $get_image->getClientOriginalName();
+            $fileRealName = current(explode('.',$fileName));
+            $product->product_image = $fileRealName.rand(0,99).'.'.$fileExtension;
+            $get_image->move('public/backend/uploads/product/',$product->product_image);
+            $thumbnails = Image::make('public/backend/uploads/product/'.$product->product_image)->resize(400, 350)->save('public/backend/uploads/thumbnails/'.$product->product_image, 60, 'jpg');
+
+            $result = $product->save();
+            if($result){
+                return redirect()->route('add_product')->with('success', 'Đã thêm sản phẩm thành công');
+            }
+        }
+        else{
+            return redirect()->back()->with('message','Đối với sản phẩm mới xin vui lòng chọn ảnh để upload')->withInput();
+        } */
     }
 
     //Change product status from hide to unhide
@@ -103,7 +131,9 @@ class ProductController extends Controller
         $product = Product::find($product_id);
         $product->delete();
         $image_path = 'public/backend/uploads/product/'.$product_image;
+        $thumbnail_path = 'public/backend/uploads/thumbnails/'.$product_image;
         File::delete($image_path);
+        File::delete($thumbnail_path);
         return redirect()->route('list_product')->with('message', 'Đã xoá sản phẩm thành công');
     }
 
@@ -154,6 +184,7 @@ class ProductController extends Controller
         $product = Product::find($product_id);
         $true_brand = Brand::find($brand_id);
         $related_product = Product::where('cat_id',$cat_id)->get();
-        return view('pages.product.product_details',compact('category','brand','product','true_brand','related_product'));
+        $ratings = Rating::with('user')->where('rateable_id', $product_id)->get();
+        return view('pages.product.product_details',compact('category', 'brand', 'ratings', 'product', 'true_brand', 'related_product'));
     }
 }

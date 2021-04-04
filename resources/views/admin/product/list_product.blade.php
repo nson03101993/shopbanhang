@@ -58,7 +58,7 @@
                                 <td>{{ $items->product_name }}</td>
                                 <td>{{ Helper::formatPrice($items->product_price) }} VNĐ</td>
                                 <td>{{ $items->product_quantity }}</td>
-                                <td><img width="60px" height="60px" src="{{ asset('public/backend/uploads/product/'.$items->product_image) }}" /></td>
+                                <td><img width="60px" height="60px" src="{{ asset('public/backend/uploads/thumbnails/'.$items->product_image) }}" /></td>
                                 <td>{!! Helper::limitStr($items->product_desc) !!}</td>
                                 <td>{{ $items->category->cat_name }}</td>
                                 <td>{{ $items->brand->brand_name }}</td>

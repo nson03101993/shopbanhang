@@ -13,19 +13,19 @@
                             @if ($errors->has('username'))
                                 <h5 class="text-danger">{{$errors->first('username')}}</h5>
                             @endif
-                            <input type="text" name="username" placeholder="Tên Đăng Nhập"/>
+                            <input onfocus="this.value=''" type="text" name="username" placeholder="Tên Đăng Nhập"/>
                             @if ($errors->has('email'))
                                 <h5 class="text-danger">{{$errors->first('email')}}</h5>
                             @endif
-                            <input type="email" name="email" placeholder="Địa Chỉ Email"/>
+                            <input onfocus="this.value=''" type="email" name="email" placeholder="Địa Chỉ Email"/>
                             @if ($errors->has('password'))
                                 <h5 class="text-danger">{{$errors->first('password')}}</h5>
                             @endif
-                            <input type="password" name="password" placeholder="Mật Khẩu"/>
+                            <input onfocus="this.value=''" type="password" name="password" placeholder="Mật Khẩu"/>
                             @if ($errors->has('phone'))
                                 <h5 class="text-danger">{{$errors->first('phone')}}</h5>
                             @endif
-                            <input type="text" name="phone" placeholder="Số Điện Thoại" />
+                            <input onfocus="this.value=''" type="text" name="phone" placeholder="Số Điện Thoại" />
                             <button type="submit" class="btn btn-default" name="register" value="register" >Đăng Ký</button>
                         </form>
                     </div><!--/sign up form-->

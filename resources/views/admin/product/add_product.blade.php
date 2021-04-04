@@ -59,7 +59,7 @@
                                 <label for="product_image">Ảnh Sản Phẩm</label>
                                 <div class="upload-image">
                                     <img src="{{ asset('public/backend/images/product.png') }}" alt="">
-                                    <input accept="image/*" type="file" name="product_image" class="form-control" id="product_image">
+                                    <input accept="image/*" type="file" name="product_image[]" class="form-control" id="product_image" multiple>
                                 </div>
                                 @if ($errors->has('product_image'))
                                 <span class="text-primary"> {{ $errors->first('product_image') }} </span>

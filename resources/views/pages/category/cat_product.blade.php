@@ -3,7 +3,7 @@
 @section('main_content')
     <!--features_items-->
     <div class="features_items">
-        <h2 class="title text-center">Sản Phẩm Theo Danh Mục: </h2>
+        <h2 class="title text-center">Sản Phẩm Theo Danh Mục: {{ $cat_prd->cat_name }} </h2>
             @foreach ($product as $items)
                 <a href="{{ route('product_details', ['product_id' => $items->product_id, 'brand_id' => $items->brand_id, 'cat_id' => $items->cat_id]) }}">
                     <div class="col-sm-4">

@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use DB;
 use App\Http\Requests;
 use App\Models\User;
 use App\Models\News;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Comments;
 use App\Models\NewsTags;
 use App\Models\Tags;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UserRequest;
 use File;
@@ -75,7 +78,9 @@ class UserController extends Controller
     //////News
     public function showNews(){
         $news = News::where('status', 1)->orderBy('id', 'DESC')->paginate(3);
-        return view('pages.news.show_news', compact('news'));
+        $recent_news = News::where('status', 1)->orderBy('id', 'DESC')->limit(5)->get();
+        $recent_tags = Tags::where('status', 1)->orderBy('id', 'DESC')->limit(5)->get();
+        return view('pages.news.show_news', compact('news', 'recent_news', 'recent_tags'));
     }
 
     public function showNewsDetails($news_id){
@@ -135,4 +140,43 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Cập nhật tài khoản thành công');
         }
     }
+
+    ////Product Reviews
+    public function productReviews(Request $request){
+        $product_id = $request->product_id;
+        $product = Product::find($product_id);
+
+        //Check if user have already rated or not
+        $user_id = $request->user_id;
+        $user_rates = Rating::where('rateable_id', $product_id)->get();
+        $rated_or_not = false;
+        foreach($user_rates as $user_rate){
+            if($user_rate->user_id == $user_id){
+                $rated_or_not = true;
+            }
+        }
+
+        if($rated_or_not == true){
+            return redirect()->back()
+            ->withInput(['tab' => 'reviews'])
+            ->with('message', 'Rất tiếc, bạn đã đánh giá sản phẩm này rồi.');
+        }
+        else{
+            $rating = new \willvincent\Rateable\Rating;
+            $rating->rating = $request->rating;
+            $rating->username = $request->username;
+            $rating->email = $request->email;
+            $rating->content = $request->content;
+            $rating->user_id = $request->user_id;
+            $product->ratings()->save($rating);
+            return redirect()->back()
+            ->withInput(['tab' => 'reviews'])
+            ->with('message', 'Đánh giá thành công. Cám ơn bạn đã dành thời gian quan tâm đến sản phẩm.');
+        }
+        
+        /* dd($product->ratings);
+        return response()->json(['success' => 'Đánh giá sản phẩm thành công']);
+        */
+    }
+
 }

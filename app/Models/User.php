@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Orders;
 use App\Models\Comments;
+use App\Models\Rating;
 
 class User extends Model
 {
@@ -25,4 +26,10 @@ class User extends Model
     public function comments(){
         return $this->hasMany(Comments::class);
     }
+
+    //define relationship with rating
+    public function rating(){
+        return $this->hasMany(Rating::class);
+    }
+
 }

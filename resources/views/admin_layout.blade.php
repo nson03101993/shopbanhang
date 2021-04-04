@@ -46,9 +46,9 @@
 </head>
 
 <body>
-    <div>
+    {{-- <div>
         {{ Session::get('success') }}
-    </div>
+    </div> --}}
     <section id="container">
         <!--header start-->
         <header class="header fixed-top clearfix">

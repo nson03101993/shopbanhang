@@ -1353,6 +1353,7 @@ h2.title {
 
 #reviews  ul  li {
 	display:inline-block;
+  padding-right: 10px;
 }
 
 #reviews ul li a {
@@ -1377,14 +1378,14 @@ h2.title {
 	color:#363432;
 }
 
-#reviews  form span {
+/* #reviews  form span {
   display: block;
-}
+} */
 
 #reviews form span input {
   background:#F0F0E9;
   border: 0 none;
-  color: #A6A6A1;
+  color: #333;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   outline: medium none;
@@ -1398,7 +1399,7 @@ h2.title {
 #reviews textarea {
   background: #F0F0E9;
   border: medium none;
-  color: #A6A6A1;
+  color: #333;
   height: 195px;
   margin-bottom: 25px;
   margin-top: 15px;
@@ -2683,4 +2684,8 @@ h2.title {
   border-radius: 50%;
   width: 130px;
   height: 130px;
+}
+
+.fa-star{
+  color:#fde16d;
 }

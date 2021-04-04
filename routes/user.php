@@ -78,7 +78,7 @@ use GrahamCampbell\Throttle\Facades\Throttle;
 
     //Review product
 
-    Route::post('/product/reviews', 'UserController@productReviews')->name('product.reviews');
+    Route::post('/product/reviews', 'UserController@productReviews')->name('product.reviews')->middleware('CheckLoginUser');
     
   
 

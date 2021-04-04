@@ -13,8 +13,8 @@
                         @endif
                         <form action="{{ route('post_login') }}" method="POST">
                             {{ @csrf_field() }}
-                            <input name="username" type="text" placeholder="Tên Đăng Nhập" required />
-                            <input name="password" type="password" placeholder="Mật Khẩu" required />
+                            <input onfocus="this.value=''" name="username" type="text" placeholder="Tên Đăng Nhập" required />
+                            <input onfocus="this.value=''" name="password" type="password" placeholder="Mật Khẩu" required />
                             <span>
                                 <input type="checkbox" class="checkbox">Ghi Nhớ
                                 <a id="new_account" href="{{ route('get_register') }}"> Chưa có tài khoản? Đăng ký ngay. </a>

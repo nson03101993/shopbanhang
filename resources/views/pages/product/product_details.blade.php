@@ -5,7 +5,7 @@
                 <div class="product-details">
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{asset('public/backend/uploads/product/'.$product->product_image)}}" alt="" />
+                            <img class="thumbnails" src="{{ asset('public/backend/uploads/thumbnails/'.$product->product_image) }}" alt="" />
                             <h3>Phóng to</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -74,7 +74,7 @@
             <ul class="nav nav-tabs">
                 <li class="active" ><a href="#details" data-toggle="tab">Chi tiết sản phẩm</a></li>
                 <li><a href="#companyprofile" data-toggle="tab">Thông tin công ty</a></li>
-                <li><a href="#reviews" data-toggle="tab">Đánh giá / Rating</a></li>
+                <li><a href="#reviews" data-toggle="tab">Đánh giá sản phẩm</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -96,23 +96,40 @@
         
             <div class="tab-pane fade" id="reviews" >
                 <div class="col-sm-12">
-                    <ul>
-                        <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                        <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                    </ul>
-                    <p>Lorem ipsum dolor sit amet, consectetur ad.</p>
+                    @foreach ($ratings as $rating)
+                        <ul>
+                            <li><i class="fa fa-user"></i> {{ $rating->user->username }}</li>
+                            <li><i class="fa fa-clock-o"></i> {{ Helper::getTime($rating->created_at) }}</li>
+                            <li><i class="fa fa-calendar-o"></i> {{ Helper::getDate($rating->created_at) }}</li>
+                            <li>
+                                <?php
+                                    for($i = 0; $i < $product->averageRating(); $i++ ){
+                                        echo '<i class="fa fa-star"></i>';
+                                    }
+                                ?>           
+                            </li>
+                        </ul>
+                        <p>Đánh giá: {{ $rating->content }}</p>
+                        <hr/>
+                    @endforeach
+
+                    @if (Session::has('message'))
+						<section class="alert alert-success">{{ Session::get('message') }}</section>
+					@endif
+
                     <p><b>Viết đánh giá của bạn</b></p>
-                    
-                    <form action="{{ route('product.reviews') }}" method="POST">
+                    <form id='user_rate' action="{{ route('product.reviews') }}" method="POST" >
                         {{ @csrf_field() }}
+                        <input type="hidden" name="user_id" value="{{ Session::get('user_id') }}" >
+                        <input type="hidden" name="product_id" value="{{ $product->product_id }}" >
                         <span>
-                            <input type="text" placeholder="Tên bạn"/>
-                            <input type="email" placeholder="Địa chỉ email"/>
+                            <input value="{{ Session::get('username') }}" name="username" type="text" placeholder="Tên bạn" required/>
+                            <input name="email" type="email" placeholder="Địa chỉ email" required/>
                         </span>
-                        <textarea placeholder="Viết đánh giá của bạn" name="reviews" ></textarea>
-                        <b>Rate sao: </b> <img src="{{asset('public/frontend/images/product-details/rating.png')}}" alt="" />
-                        <button type="submit" class="btn btn-default pull-right">Đánh giá</button>
+                        <textarea placeholder="Viết đánh giá của bạn" name="content" required></textarea>
+                        <label for="star-rate" class="control-label"><b>Rate sao: </b> </label>
+                        <input name="rating" id="star-rate" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="sm" >
+                        <button type="submit" name="submit" class="btn btn-default pull-right">Đánh giá</button>
                     </form>
                 </div>
             </div>
@@ -135,7 +152,7 @@
                                         <form action="{{ route('save_cart_direct') }}" method="POST">
                                             {{ @csrf_field() }}
                                             <div class="productinfo text-center">
-                                                <img src="{{asset('public/backend/uploads/product/'.$items->product_image)}}" alt="" />
+                                                <img src="{{ asset('public/backend/uploads/thumbnails/'.$items->product_image) }}" alt="" />
                                                 <h2>{{ $items->product_name }}</h2>
                                                 <input type="hidden" name="product_id" value="{{ $items->product_id }}">
                                                 <p style="font-weight: bold; font-size: 20px">Giá: {{ number_format($items->product_price,0,",",".") }}</p>
@@ -158,4 +175,54 @@
               </a>			
         </div>
     </div><!--/recommended_items-->
+
+    <script type="text/javascript">
+       $(document).ready(function () {
+            $('.nav-tabs a[href="#{{ old('tab') }}"]').tab('show');
+        });
+    </script>
+
+    {{-- <script type="text/javascript">
+        $(document).ready(function(){
+            $('#user_rate').on('submit', function(){
+                var user_id = $('input[name="user_id"]').val();
+                var product_id = $('input[name="product_id"]').val();
+                var username = $('input[name="username"]').val();
+                var email = $('input[name="email"]').val();
+                var content = $('textarea[name="content"]').val();
+                var rating = $('input[name="rating"]').val();
+
+                $.ajaxSetup({ 
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('product.reviews') }}",
+                    dataType: 'json',
+                    data: {
+                        'rating': rating,
+                        'user_id': user_id,
+                        'product_id': product_id,
+                        'username': username,
+                        'email': email,
+                        'content': content
+                    },
+                    success: function(response){
+                        alert(response.success);
+                    },
+                    error: function(response){
+                        alert('AJAX Failed!!!');
+                        console.log(response);
+                    }
+                });
+
+            });
+
+        });
+
+    </script> --}}
+
 @endsection

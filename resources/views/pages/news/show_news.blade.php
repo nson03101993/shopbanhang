@@ -8,27 +8,31 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Bài viết gần đây</h2>
-                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                    <div class="panel-group category-products" id="accordian"><!--recent news-->
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        Sportswear
-                                    </a>
-                                </h4>
-                            </div>
+                            @foreach ($recent_news as $items)
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                            {{ $items->title }}
+                                        </a>
+                                    </h4>
+                                </div>
+                            @endforeach  
                         </div>                                         
-                    </div><!--/category-products-->
+                    </div><!--/recent news-->
                 
-                    <div class="brands_products"><!--brands_products-->
+                    <div class="brands_products"><!--tags-->
                         <h2>Tags</h2>
-                        <div class="brands-name">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-                            </ul>
-                        </div>
-                    </div><!--/brands_products-->
+                        @foreach ($recent_tags as $items)
+                            <div class="brands-name">
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li><a href=""> <span class="pull-right"><i class="fa fa-eye"></i></span>{{ $items->name }}</a></li>
+                                </ul>
+                            </div>
+                        @endforeach
+                    </div><!--/tags-->
                     
                 </div>
             </div>
