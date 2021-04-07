@@ -12,7 +12,12 @@
                             {{ @csrf_field() }}          
                             <div class="single-products">                      
                                 <div class="productinfo text-center">
-                                    <img style="width: 150px; height: 150px" src="{{asset('public/backend/uploads/product/'.$items->product_image)}}" alt="" />
+                                    @php
+                                        $images = json_decode($items->product_image);
+                                    @endphp
+                                    @if (is_array($images) && !empty($images))
+                                        <img style="width: 150px; height: 150px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[0]) }}" alt="" />
+                                    @endif
                                     <h2>{{ Helper::formatPrice($items->product_price) }} VNĐ</h2>
                                     <p>{{$items->product_name}}</p>
                                     <input type="hidden" name="product_id" value="{{ $items->product_id }}" >
@@ -53,7 +58,12 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img style="padding: 10px" src="{{ 'public/backend/uploads/product/'.$prd->product_image }}" alt="" />
+                                            @php
+                                                $images = json_decode($prd->product_image, true);
+                                            @endphp
+                                            @if (is_array($images) && !empty($images))
+                                                <img style="padding: 10px" src="{{ 'public/backend/uploads/thumbnails/'.$images[0] }}" alt="" />
+                                            @endif
                                             <h2>{{ $prd->product_name }}</h2>
                                             <p>{{ Helper::formatPrice($prd->product_price) }} VNĐ</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
@@ -81,7 +91,12 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img style="width: 70%; height: 70%" src="{{ 'public/backend/uploads/product/'.$items->product_image }}" alt="" />
+                                        @php
+                                            $images = json_decode($items->product_image, true);
+                                        @endphp
+                                        @if (is_array($images) && !empty($images))
+                                            <img style="width: 70%; height: 70%" src="{{ 'public/backend/uploads/thumbnails/'.$images[0] }}" alt="" />
+                                        @endif
                                         <h2>{{ Helper::formatPrice($items->product_price) }} VNĐ</h2>
                                         <p>{{ $items->product_name }}</p>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
@@ -97,7 +112,12 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img style="width: 70%; height: 70%" src="{{ 'public/backend/uploads/product/'.$items->product_image }}" alt="" />
+                                        @php
+                                            $images = json_decode($items->product_image, true);
+                                        @endphp
+                                        @if (is_array($images) && !empty($images))
+                                            <img style="width: 70%; height: 70%" src="{{ 'public/backend/uploads/thumbnails/'.$images[0] }}" alt="" />
+                                        @endif
                                         <h2>{{ Helper::formatPrice($items->product_price) }} VNĐ</h2>
                                         <p>{{ $items->product_name }}</p>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>

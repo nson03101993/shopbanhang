@@ -58,7 +58,14 @@
                                 <td>{{ $items->product_name }}</td>
                                 <td>{{ Helper::formatPrice($items->product_price) }} VNĐ</td>
                                 <td>{{ $items->product_quantity }}</td>
-                                <td><img width="60px" height="60px" src="{{ asset('public/backend/uploads/thumbnails/'.$items->product_image) }}" /></td>
+                                @php
+                                    $images = json_decode($items->product_image, true);
+                                @endphp
+                                @if(is_array($images) && !empty($images))
+                                {{-- @foreach ($images as $image) --}}
+                                    <td><img width="60px" height="60px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[0]) }}" /></td>
+                                {{-- @endforeach --}}
+                                @endif
                                 <td>{!! Helper::limitStr($items->product_desc) !!}</td>
                                 <td>{{ $items->category->cat_name }}</td>
                                 <td>{{ $items->brand->brand_name }}</td>

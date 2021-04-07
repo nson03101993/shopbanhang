@@ -12,7 +12,12 @@
                                 {{ @csrf_field() }}            
                                 <div class="single-products">                      
                                     <div class="productinfo text-center">
-                                        <img style="width: 150px; height: 150px" src="{{asset('public/backend/uploads/product/'.$items->product_image)}}" alt="" />
+                                        @php
+                                            $images = json_decode($items->product_image, true);
+                                        @endphp
+                                        @if (is_array($images) && !empty($images))
+                                        <img style="width: 150px; height: 150px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[0]) }}" alt="" />
+                                        @endif
                                         <h2>{{ Helper::formatPrice($items->product_price) }} VNĐ</h2>
                                         <input type="hidden" name="product_id" value="{{ $items->product_id }}" >
                                         <p>{{$items->product_name}}</p>

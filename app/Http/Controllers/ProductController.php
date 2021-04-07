@@ -161,8 +161,10 @@ class ProductController extends Controller
         //Xử lý ảnh
         $get_image = $request->file('product_image');
         if(isset($get_image)){
-            $path = 'public/backend/uploads/product/'.$product_image;
-            File::delete($path);
+            $image_path = 'public/backend/uploads/product/'.$product_image;
+            $thumbnail_path = 'public/backend/uploads/thumbnails/'.$product_image;
+            File::delete($image_path);
+            File::delete($thumbnail_path);
             $fileExtension = $get_image->getClientOriginalExtension();
             $fileName = $get_image->getClientOriginalName();
             $fileRealName = current(explode('.',$fileName));

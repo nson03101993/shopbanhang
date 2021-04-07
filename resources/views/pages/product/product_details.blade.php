@@ -5,7 +5,12 @@
                 <div class="product-details">
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img class="thumbnails" src="{{ asset('public/backend/uploads/thumbnails/'.$product->product_image) }}" alt="" />
+                            @php
+                                $images = json_decode($product->product_image, true);
+                            @endphp
+                            @if (is_array($images) && !empty($images))
+                                <img class="thumbnails" src="{{ asset('public/backend/uploads/thumbnails/'.$images[0]) }}" alt="" />
+                            @endif
                             <h3>Phóng to</h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -13,15 +18,25 @@
                             <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
                                     <div class="item active">
-                                    <a href=""><img src="{{asset('public/frontend/images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('public/frontend/images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('public/frontend/images/product-details/similar3.jpg')}}" alt=""></a>
+                                    @if (is_array($images) && !empty($images))
+                                    <?php 
+                                        for($i = 0; $i < 3; $i++){
+                                    ?>
+                                        <a href="#"><img style="width: 85px; height: 84px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[$i]) }}" alt=""></a>
+                                    <?php
+                                        }
+                                    ?>
                                     </div>
                                     <div class="item">
-                                    <a href=""><img src="{{asset('public/frontend/images/product-details/similar1.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('public/frontend/images/product-details/similar2.jpg')}}" alt=""></a>
-                                    <a href=""><img src="{{asset('public/frontend/images/product-details/similar3.jpg')}}" alt=""></a>
-                                    </div>                                
+                                    <?php
+                                        for($i = 3; $i < 6; $i++){
+                                    ?>
+                                        <a href="#"><img style="width: 85px; height: 84px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[$i]) }}" alt=""></a>
+                                    <?php
+                                        }
+                                    ?>
+                                    </div>
+                                    @endif                              
                                 </div>
 
                             <!-- Controls -->

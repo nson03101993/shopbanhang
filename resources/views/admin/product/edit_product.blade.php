@@ -71,7 +71,14 @@
                             <div class="form-group">
                                 <label for="exampleProduct">Ảnh Sản Phẩm</label>
                                 <input accept="image/*" type="file" name="product_image" class="form-control" id="product_image">
-                                <img style="width: 100px; height: 100px; margin-top: 10px" src="{{asset('public/backend/uploads/product/'.$product->product_image)}}" />
+                                @php
+                                    $images = json_decode($product->product_image, true);
+                                @endphp
+                                @if (is_array($images) && !empty($images))
+                                @foreach ($images as $image)
+                                    <img style="width: 100px; height: 100px; margin-top: 10px; margin-right: 50px" src="{{ asset('public/backend/uploads/product/'.$image) }}" />
+                                @endforeach        
+                                @endif             
                                 @if ($errors->has('product_image'))
                                 <span class="text-primary"> {{ $errors->first('product_image') }} </span>
                                 @endif
