@@ -186,7 +186,7 @@
                                 <span>Khách hàng</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Danh sách khách hàng</a></li>
+                                <li><a href="{{ route('list.customers') }}"><i class="fa fa-circle-o"></i>Danh sách khách hàng</a></li>
                             </ul>
                         </li>
                         {{-- End Customer --}}

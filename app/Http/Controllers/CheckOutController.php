@@ -61,7 +61,7 @@ class CheckOutController extends Controller
         
             if($result){
                 Cart::destroy();
-                return Redirect::to('/orders_success');
+                return redirect()->route('orders_success');
             }
         }
         else{

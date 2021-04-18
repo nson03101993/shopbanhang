@@ -47,7 +47,7 @@ class CategoryController extends Controller
 
     //Save category
     public function saveCategory(CategoryRequest $request){
-        $query = Category::where('cat_name',$category->cat_name)->exists();
+        $query = Category::where('cat_name', $request->cat_name)->exists();
         if($query == true){
             return redirect()->back()->with('alert','Tên Danh Mục Đã Tồn Tại. Vui Lòng Nhập Danh Mục Khác.');
         }

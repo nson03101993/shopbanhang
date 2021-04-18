@@ -59,6 +59,7 @@ class ProductController extends Controller
         $product->product_desc = $request->product_desc;
         $product->product_content = $request->product_content;
         $product->product_status = $request->product_status;
+        $product->product_video = $request->product_video;
 
         /* Xử lý ảnh */
         $get_image = $request->file('product_image');
@@ -156,15 +157,13 @@ class ProductController extends Controller
         $product->product_desc = $request->product_desc;
         $product->product_content = $request->product_content;
         $product->product_status = $request->product_status;
-
+        $product->product_video = $request->product_video;
 
         //Xử lý ảnh
         $get_image = $request->file('product_image');
         if(isset($get_image)){
-            $image_path = 'public/backend/uploads/product/'.$product_image;
-            $thumbnail_path = 'public/backend/uploads/thumbnails/'.$product_image;
-            File::delete($image_path);
-            File::delete($thumbnail_path);
+            $path = 'public/backend/uploads/product/'.$product_image;
+            File::delete($path);
             $fileExtension = $get_image->getClientOriginalExtension();
             $fileName = $get_image->getClientOriginalName();
             $fileRealName = current(explode('.',$fileName));

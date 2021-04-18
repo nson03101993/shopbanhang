@@ -9,7 +9,7 @@ use App\Models\OrdersDetails;
 use App\Models\User;
 use App\Models\Product;
 use Carbon\Carbon;
-
+use Exception;
 
 class AdminController extends Controller
 {
@@ -47,7 +47,7 @@ class AdminController extends Controller
     }
 
     public function changeOrdersStatus(Request $request, $orders_id){
-        $orders = Orders::find($orders_id);
+        $orders = Orders::findOrFall($orders_id);
         $orders->orders_status = $request->status;
         $result = $orders->save();
         if($result){
@@ -72,6 +72,15 @@ class AdminController extends Controller
             OrdersDetails::where('product_id', $product_id)->delete();
             return redirect()->back()->with('alert', 'Xóa sản phẩm khỏi đơn hàng thành công');
         }
+    }
+
+    ////////Customers
+    public function listCustomers(){
+        $all_customers = User::all();
+        $all_orders = Orders::all();
+        $customers = User::paginate(5);
+        return view('admin.customers.list', compact('customers', 'all_customers', 'all_orders'));
+        
     }
 
 }

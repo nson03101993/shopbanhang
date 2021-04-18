@@ -44,7 +44,7 @@
                             <th>Giá</th>
                             <th>Tồn Kho</th>
                             <th>Ảnh Sản Phẩm</th>
-                            <th>Mô tả</th>
+                            <th>Video sản phẩm</th>
                             <th>Danh Mục</th>
                             <th>Thương Hiệu</th>
                             <th>Trạng thái</th>
@@ -66,7 +66,7 @@
                                     <td><img width="60px" height="60px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[0]) }}" /></td>
                                 {{-- @endforeach --}}
                                 @endif
-                                <td>{!! Helper::limitStr($items->product_desc) !!}</td>
+                                <td>{!! $items->video_html !!}</td>
                                 <td>{{ $items->category->cat_name }}</td>
                                 <td>{{ $items->brand->brand_name }}</td>
                                 <td>

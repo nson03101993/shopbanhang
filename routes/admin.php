@@ -40,7 +40,7 @@ Route::group(['middleware' => 'CheckLogin'], function(){
 
         Route::get('/edit/{cat_id}', 'CategoryController@editCategory')->name('edit_category');
 
-        Route::get('/update/{cat_id}', 'CategoryController@updateCategory')->name('update_category');
+        Route::post('/update/{cat_id}', 'CategoryController@updateCategory')->name('update_category');
 
     });
 
@@ -166,5 +166,8 @@ Route::group(['middleware' => 'CheckLogin'], function(){
 
     //Upload photo
     Route::post('/upload_photo', 'CKEditorController@uploadPhoto')->name('upload_photo');
+
+    //Customers
+    Route::get('/customers/list', 'AdminController@listCustomers')->name('list.customers');
 
 });

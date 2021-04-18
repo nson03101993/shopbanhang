@@ -120,9 +120,12 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>
-                                                    <img src="{{ asset('public/backend/uploads/product/'.$product->product_image) }}"
-                                                        alt=""
-                                                        style=" width: 90px; height: auto; ">
+                                                    @php
+                                                    $images = json_decode($product->product_image);
+                                                    @endphp
+                                                    @if (is_array($images) && !empty($images))
+                                                    <img src="{{ asset('public/backend/uploads/product/'.$images[0]) }}" alt="" style=" width: 90px; height: auto; ">
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     {{ $product->product_name }}

@@ -20,8 +20,13 @@
                                 <a id="new_account" href="{{ route('get_register') }}"> Chưa có tài khoản? Đăng ký ngay. </a>
                             </span>
                             <button type="submit" class="btn btn-default" value="login" name="login" >Đăng Nhập</button>
-                        </form>
+                        </form>  
                     </div><!--/login form-->
+                    <div id="google-login">
+                        <a href="{{ route('google.login') }}">
+                            <i class="fa fa-google-plus-square" aria-hidden="true"></i> Đăng nhập bằng Google
+                        </a>
+                    </div>
                 </div>
                 <div class="col-sm-7">
                     <img id="login_banner" src="{{ asset('public/frontend/images/cart/login_banner.png') }}" >

@@ -13,10 +13,10 @@
                                 <div class="single-products">                      
                                     <div class="productinfo text-center">
                                         @php
-                                            $images = json_decode($items->product_image, true);
+                                            $images = json_decode($items->product_image)
                                         @endphp
-                                        @if (is_array($images) && !empty($images))
-                                        <img style="width: 150px; height: 150px" src="{{ asset('public/backend/uploads/thumbnails/'.$images[0]) }}" alt="" />
+                                        @if(is_array($images) && !empty($images))
+                                            <img style="width: 150px; height: 150px" src="{{asset('public/backend/uploads/product/'.$images[0])}}" alt="" />
                                         @endif
                                         <h2>{{ Helper::formatPrice($items->product_price) }} VNĐ</h2>
                                         <input type="hidden" name="product_id" value="{{ $items->product_id }}" >

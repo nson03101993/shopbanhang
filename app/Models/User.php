@@ -14,7 +14,7 @@ class User extends Model
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'username', 'email', 'password', 'phone'
+        'username', 'email', 'password', 'phone', 'google_id'
     ];
 
     //define relationship with orders

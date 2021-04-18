@@ -79,6 +79,13 @@ use GrahamCampbell\Throttle\Facades\Throttle;
     //Review product
 
     Route::post('/product/reviews', 'UserController@productReviews')->name('product.reviews')->middleware('CheckLoginUser');
+
+    //Log in with google
+
+    Route::get('/google/login', 'AuthController@googleLogin')->name('google.login');
+
+    Route::get('/google/callback', 'AuthController@googleCallback')->name('google.callback');
+
     
   
 

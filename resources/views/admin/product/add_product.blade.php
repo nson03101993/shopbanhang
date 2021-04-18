@@ -66,6 +66,10 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="product_video">Link Video Sản Phẩm (Nhúng)</label>
+                                <input type="text" name="product_video" class="form-control" id="product_video">
+                            </div>
+                            <div class="form-group">
                                 <label for="product_description">Mô Tả Sản Phẩm</label>
                                 <textarea name="product_desc" id="ckeditor1" style="resize: none" rows="8" class="form-control" id="product_desc"></textarea>
                                 @if ($errors->has('product_desc'))

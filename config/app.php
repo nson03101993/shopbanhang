@@ -164,6 +164,7 @@ return [
         willvincent\Rateable\RateableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Cohensive\Embed\EmbedServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -233,6 +234,7 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Embed' => Cohensive\Embed\Facades\Embed::class,
     ],
 
 ];

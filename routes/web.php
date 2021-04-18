@@ -17,7 +17,7 @@ use GrahamCampbell\Throttle\Facades\Throttle;
 
 
 ///Dieu huong 404 cho tat ca URL khong hop le
-Route::fallback('HomeController@notFound');
+Route::fallback('HomeController@notFound')->name('page404');
 
 /////Trang chu
 Route::get('', ['as' => 'home_page', 'uses' => 'HomeController@index']);
