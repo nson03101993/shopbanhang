@@ -19,6 +19,7 @@ class CreateTblCategory extends Migration
             $table->text('cat_desc');
             $table->integer('cat_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

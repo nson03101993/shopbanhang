@@ -16,7 +16,7 @@
 						<div class="carousel-inner">
 							<div class="item active">
 								<div class="col-sm-6">
-									<h1><span>SM </span>BISEXUAL SHOP</h1>
+									<h1><span>PhuKyen </span> SHOP</h1>
 									<h2>Shop phụ kiện điện thoại uy tín nhất <strong>Vịnh Bắc Bộ</strong></h2>
 									<p>Hoàn 2 tỷ USD nếu phát hiện hàng giả hàng nhái hàng kém chất lượng. </p>
 									<button type="button" class="btn btn-default get">Mua Ngay</button>
@@ -27,7 +27,7 @@
 							</div>
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>SM </span>BISEXUAL SHOP</h1>
+									<h1><span>PhuKyen </span> SHOP</h1>
 									<h2>Shop phụ kiện điện thoại đỉnh nhất <strong>Văn Lang</strong></h2>
 									<p>Ưu đãi bốn mùa xuân hạ thu đông. Discount tận đáy hố ga. Sales SML.  </p>
 									<button type="button" class="btn btn-default get">Mua Ngay</button>
@@ -39,7 +39,7 @@
 							
 							<div class="item">
 								<div class="col-sm-6">
-									<h1><span>SM </span>BISEXUAL SHOP</h1>
+									<h1><span>PhuKyen </span> SHOP</h1>
 									<h2>Shop phụ kiện điện thoại rẻ nhất <strong>Vũ Trụ</strong></h2>
 									<p>Giá rẻ nhất vũ trụ. Tìm được nơi nào bán rẻ hơn tặng ngay sản phẩm.</p>
 									<button type="button" class="btn btn-default get">Mua Ngay</button>

@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\OrdersDetails;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Orders extends Model
-{
+{   
+    use SoftDeletes;
+
     //define table and primary key
     protected $table = 'tbl_orders';
     protected $primaryKey = 'orders_id';

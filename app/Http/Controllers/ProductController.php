@@ -177,6 +177,32 @@ class ProductController extends Controller
         
     }
 
+    //recycle product
+    public function recycleProduct(){
+        $all_product = Product::onlyTrashed()->get();
+        $product = Product::onlyTrashed()->paginate(3);
+        $count = $product->count();
+        $count_all = $all_product->count();
+
+        return view('admin.product.recycle_product', compact('product', 'count', 'count_all'));
+    }
+
+    //restore product
+    public function restoreProduct($product_id){
+        try {
+            //code...
+            $product = Product::withTrashed()->find($product_id)->restore();
+        } catch (\Exception $e) {
+            //throw $e;
+            return redirect()->back()->withError($e->getMessage());
+        } finally{
+            if($product){
+                return redirect()->back()->with(['message' => 'Đã khôi phục sản phẩm thành công.']);
+            }
+        }
+    }
+
+
     ///////Front end
 
     public function showProductDetails($product_id, $brand_id, $cat_id){

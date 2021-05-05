@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Product;
 
 class Category extends Model
-{
+{   
+    use SoftDeletes;
+
     //define table and primary key
     protected $table = 'tbl_category';
     protected $primaryKey = 'cat_id';

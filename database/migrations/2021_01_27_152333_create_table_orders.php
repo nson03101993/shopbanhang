@@ -15,7 +15,8 @@ class CreateTableOrders extends Migration
     {
         Schema::create('tbl_orders', function (Blueprint $table) {
             $table->id('orders_id');
-            $table->Integer('user_id');
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('user_id')->on('tbl_users')->onDelete('cascade');
             $table->string('customer_name');
             $table->string('email');
             $table->string('phone');
@@ -27,6 +28,7 @@ class CreateTableOrders extends Migration
             $table->string('orders_total');
             $table->Integer('orders_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -40,7 +40,12 @@
                             @foreach ($cart_info as $cart)
                                 <tr>                              
                                     <td class="cart_product">
-                                        <img width="60px" height="60px" src="{{ asset('public/backend/uploads/product/'.$cart->options->image) }}" alt="">
+                                        @php
+                                            $images = json_decode($cart->options->image)
+                                        @endphp
+                                        @if(is_array($images) && !empty($images))
+                                        <img width="60px" height="60px" src="{{ asset('public/backend/uploads/product/'.$images[0]) }}" alt="">
+                                        @endif
                                     </td>
                                     <td class="cart_description">
                                         <h4>{{ $cart->name }}</h4>

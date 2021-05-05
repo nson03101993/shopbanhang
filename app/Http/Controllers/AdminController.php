@@ -47,7 +47,7 @@ class AdminController extends Controller
     }
 
     public function changeOrdersStatus(Request $request, $orders_id){
-        $orders = Orders::findOrFall($orders_id);
+        $orders = Orders::find($orders_id);
         $orders->orders_status = $request->status;
         $result = $orders->save();
         if($result){
@@ -74,11 +74,36 @@ class AdminController extends Controller
         }
     }
 
+    //recycle orders
+    public function recycleOrders(){
+        $all_orders = Orders::onlyTrashed()->get();
+        $orders = Orders::onlyTrashed()->paginate(3);
+        $count = $orders->count();
+        $count_all = $all_orders->count();
+
+        return view('admin.orders.recycle_orders', compact('orders', 'count', 'count_all'));
+    }
+
+    //restore orders
+    public function restoreOrders($orders_id){
+        try {
+            //code...
+            $orders = Orders::withTrashed()->find($orders_id)->restore();
+        } catch (\Exception $e) {
+            //throw $e;
+            return redirect()->back()->withError($e->getMessage());
+        } finally{
+            if($orders){
+                return redirect()->back()->with(['message' => 'Đã khôi phục đơn hàng thành công.']);
+            }
+        }
+    }
+
     ////////Customers
     public function listCustomers(){
         $all_customers = User::all();
-        $all_orders = Orders::all();
         $customers = User::paginate(5);
+        $all_orders = Orders::all();
         return view('admin.customers.list', compact('customers', 'all_customers', 'all_orders'));
         
     }

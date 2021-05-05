@@ -198,13 +198,12 @@
                                 <span>Thùng rác</span>
                             </a>
                             <ul class="sub">
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Danh mục</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Thương hiệu</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Sản phẩm</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
+                                <li><a href="{{ route('recycle_category') }}"><i class="fa fa-circle-o"></i>Danh mục</a></li>
+                                <li><a href="{{ route('recycle_brand') }}"><i class="fa fa-circle-o"></i>Thương hiệu</a></li>
+                                <li><a href="{{ route('recycle_product') }}"><i class="fa fa-circle-o"></i>Sản phẩm</a></li>
+                                <li><a href="{{ route('recycle_orders') }}"><i class="fa fa-circle-o"></i>Đơn hàng</a></li>
                                 <li><a href="{{ route('recycle_news') }}"><i class="fa fa-circle-o"></i>Tin tức</a></li>
                                 <li><a href="{{ route('recycle_tags') }}"><i class="fa fa-circle-o"></i>Tags</a></li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i>Khách hàng</a></li>
                             </ul>
                         </li>
                         {{-- End Recycle --}}

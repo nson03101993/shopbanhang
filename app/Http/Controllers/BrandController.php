@@ -106,6 +106,31 @@ class BrandController extends Controller
         } 
     }
 
+
+    public function recycleBrand(){
+        $all_brand = Brand::onlyTrashed()->get();
+        $brand = Brand::onlyTrashed()->paginate(3);
+        $count_all = $all_brand->count();
+        $count = $brand->count();
+        return view('admin.brand.recycle_brand', compact('brand', 'count', 'count_all'));
+    }
+
+    public function restoreBrand($brand_id){
+        try {
+            //code...
+            $brand = Brand::withTrashed()->find($brand_id)->restore();
+        } catch (\Exception $e) {
+            //throw $e;
+            return redirect()->back()->withError($e->getMessage());
+        } finally{
+            if($brand){
+                return redirect()->back()->with(['message' => 'Khôi phục thương hiệu thành công']);
+            }
+        }
+        
+    }
+
+
     ////////////Front End
     public function showBrandProduct($brand_id){
         $category = Category::where('cat_status','1')->orderBy('cat_id','desc')->get();

@@ -108,6 +108,31 @@ class CategoryController extends Controller
         }
     }
 
+
+    //recycle category
+    public function recycleCategory(){
+        $all_category = Category::onlyTrashed()->get();
+        $category = Category::onlyTrashed()->paginate(3);
+        $count = $category->count();
+        $count_all = $all_category->count();
+        return view('admin.category.recycle_category', compact('category', 'count', 'count_all'));
+    }
+
+    //restore category
+    public function restoreCategory($cat_id){
+        try {
+            //code...
+            $category = Category::withTrashed()->find($cat_id)->restore();
+        } catch (\Exception $e) {
+            //throw $e;
+            return redirect()->back()->withError($e->getMessage());
+        } finally{
+            if($category){
+                return redirect()->back()->with(['message' => 'Khôi phục danh mục thành công']);
+            }
+        }
+    }
+
     ////End back-end
 
     ////Front-end

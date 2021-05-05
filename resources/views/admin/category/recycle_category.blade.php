@@ -4,7 +4,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Danh Sách Tags Đã Xóa
+                Danh Sách Danh Mục Đã Xóa
             </div>
             <div class="row w3-res-tb">
                 <div class="col-sm-5 m-b-xs">
@@ -40,19 +40,19 @@
                                     <input type="checkbox"><i></i>
                                 </label>
                             </th>
-                            <th>Tên Tags</th>
+                            <th>Tên Danh Mục</th>
                             <th>Trạng thái</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tags as $key => $items)
+                        @foreach ($category as $key => $items)
                             <tr>
                                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                                <td>{{$items->name}}</td>
+                                <td>{{$items->cat_name}}</td>
                                 <td>
                                     <?php
-                                        if($items->status == 0){
+                                        if($items->cat_status == 0){
                                     ?>
                                         <a href="#"><span style="font-size: 25px; color: red" class="fa fa-thumbs-down"></span></a>
                                     <?php
@@ -65,8 +65,8 @@
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="{{ route('restore_tags', ['tags_id' => $items->id ]) }}"><i class="fa fa-recycle text-success"></i></a>
-                                    <a onClick="return confirm('Bạn có chắc chắn muốn xoá tags này vĩnh viễn?')" href="{{ route('force_delete_tags', ['tags_id' => $items->id ]) }}"><i class="fa fa-eraser text-danger"></i></a>
+                                    <a href="{{ route('restore_category', [ 'cat_id' => $items->cat_id ]) }}"><i class="fa fa-recycle text-success"></i></a>
+                                    <a href="#"><i class="fa fa-eraser text-danger"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -77,11 +77,11 @@
                 <div class="row">
 
                     <div class="col-sm-3 text-center">
-                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} tags/small>
+                        <small class="text-muted inline m-t-sm m-b-sm">Hiển thị {{ $count }} trên tổng số {{ $count_all }} thương hiệu</small>
                     </div>
                     <div class="col-sm-5 text-right text-center-xs">
                         <ul class="pagination pagination-sm m-t-none m-b-none">
-                            {{ $tags->links() }}
+                            {{ $category->links() }}
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">

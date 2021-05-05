@@ -40,7 +40,7 @@
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
 								<li><a href="#"><i class="fa fa-phone"></i> 0977045560</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> bisexual_shopp@info.japan.vn</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> phukyen@info.japan.vn</a></li>
 							</ul>
 						</div>
 					</div>
@@ -162,7 +162,7 @@
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="companyinfo">
-							<h2><span>SM Bisexual Shop</span></h2>
+							<h2><span>PhuKyen Shop</span></h2>
 							<p>Shop phụ kiện điện thoại dành cho những tín đồ SM</p>
 						</div>
 					</div>
@@ -177,7 +177,7 @@
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Rẻ nhất</p>
+								<p>Rẻ Nhất</p>
 								<h2>Vịnh Bắc Bộ</h2>
 							</div>
 						</div>
@@ -207,8 +207,8 @@
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Sướng</p>
-								<h2>nhất khi mua ỏ đây</h2>
+								<p>Hậu Mãi</p>
+								<h2>chu đáo</h2>
 							</div>
 						</div>
 						
@@ -222,7 +222,7 @@
 										<i class="fa fa-play-circle-o"></i>
 									</div>
 								</a>
-								<p>Trả góp</p>
+								<p>Trả Góp</p>
 								<h2>không giới hạn</h2>
 							</div>
 						</div>
@@ -292,7 +292,7 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2020 Bisexual Shop. All rights reserved.</p>
+					<p class="pull-left">Copyright © 2020 PhuKyen Shop. All rights reserved.</p>
 					<p class="pull-right">Designed by <span><a target="_blank" href="#">Nguyen Ngoc Son</a></span></p>
 				</div>
 			</div>

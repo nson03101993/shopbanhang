@@ -7,11 +7,12 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Orders;
 use willvincent\Rateable\Rateable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Embed;
 
 class Product extends Model
 {   
-    use Rateable;
+    use Rateable, SoftDeletes;
 
     //define table and primary key
     protected $table = 'tbl_product';

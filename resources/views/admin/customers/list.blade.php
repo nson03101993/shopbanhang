@@ -72,17 +72,20 @@
                                 <td>{{ $items->phone }}</td>
                                 <td>{{ $items->email }}</td>
                                 <td>
-                                    @foreach ($all_orders as $orders)
-                                        <?php 
-                                            $count = 0;
-                                            if($items->user_id == $orders->user_id){
-                                                $count += 1;
-                                            }
-                                        ?>
-                                    @endforeach
                                     <?php
+                                        if(!$all_orders){
+                                            $count = 0;
+                                        }
+                                        else{
+                                            $count = 0;
+                                            foreach ($all_orders as $order) {
+                                                if($items->user_id == $order->user_id){
+                                                    $count += 1;
+                                                }
+                                            }
+                                        }
                                         if($count == 0){
-                                            echo "Chưa có đơn hàng nào";
+                                            echo "Không có đơn hàng nào";
                                         }
                                         else{
                                             echo $count;

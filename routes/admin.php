@@ -42,6 +42,10 @@ Route::group(['middleware' => 'CheckLogin'], function(){
 
         Route::post('/update/{cat_id}', 'CategoryController@updateCategory')->name('update_category');
 
+        Route::get('/recycle', 'CategoryController@recycleCategory')->name('recycle_category');
+
+        Route::get('/restore/{cat_id}', 'CategoryController@restoreCategory')->name('restore_category');
+
     });
 
     //Brand
@@ -66,7 +70,11 @@ Route::group(['middleware' => 'CheckLogin'], function(){
 
         Route::post('/update/{brand_id}', 'BrandController@updateBrand')->name('update_brand');
 
-        Route::post('/sort', ['as' => 'sort_brand', 'uses' => 'BrandController@sortBrand' ]);
+        Route::post('/sort', ['as' => 'sort_brand', 'uses' => 'BrandController@sortBrand']);
+
+        Route::get('/recycle', ['as' => 'recycle_brand', 'uses' => 'BrandController@recycleBrand']);
+
+        Route::get('/restore/{brand_id}', 'BrandController@restoreBrand')->name('restore_brand');
     });
 
     //Product
@@ -90,6 +98,10 @@ Route::group(['middleware' => 'CheckLogin'], function(){
         Route::get('/edit/{product_id}', 'ProductController@editProduct')->name('edit_product');
 
         Route::post('/update/{product_id}/{product_image}', 'ProductController@updateProduct')->name('update_product');
+        
+        Route::get('/recycle', 'ProductController@recycleProduct')->name('recycle_product');
+
+        Route::get('/restore/{product_id}', 'ProductController@restoreProduct')->name('restore_product');
 
     });
 
@@ -106,6 +118,11 @@ Route::group(['middleware' => 'CheckLogin'], function(){
         Route::post('/status/change/{orders_id}', ['as' => 'change_orders_status', 'uses' => 'AdminController@changeOrdersStatus']);
 
         Route::post('/product/remove', 'AdminController@removeProduct')->name('remove_product');
+
+        Route::get('/recycle', 'AdminController@recycleOrders')->name('recycle_orders');
+
+        Route::get('/restore/{orders_id}', 'AdminController@restoreOrders')->name('restore_orders');
+
 
     });
 
