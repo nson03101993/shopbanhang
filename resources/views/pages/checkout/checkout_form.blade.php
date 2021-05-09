@@ -57,9 +57,9 @@
                                         <div class="cart_quantity_button">
                                             <form method="POST" action="{{ route('update_cart') }}">
                                                 {{{ @csrf_field() }}}
-                                            <a class="cart_quantity_up" href="#"> + </a>
+                                            <input value="-" id="minus" type="button" class="btn btn-primary cart_quantity_down">
                                             <input id="qty" class="cart_quantity_input" type="text" name="quantity" value="{{ $cart->qty }}" autocomplete=off size="2">
-                                            <a class="cart_quantity_down" href="#"> - </a>
+                                            <input value="+" id="plus" type="button" class="btn btn-primary cart_quantity_up">
                                             <input name="rowId" type="hidden" value="{{ $cart->rowId }}" >
                                             <button style="margin-left: 10px" type="submit" class="btn btn-success">
                                                 <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -119,7 +119,20 @@
         </div>
     </div>
 
-    
+    <script type="text/javascript">
+        $("#minus").on('click', function(){
+             var count = $("#qty").val();
+             if(count > 1){
+                 var data = --count;
+                 $("#qty").val(data);
+             }
+        });
 
+        $("#plus").on('click', function(){
+             var count = $("#qty").val();
+             var data = ++count;
+             $("#qty").val(data);
+        });
+     </script>
 
 @endsection

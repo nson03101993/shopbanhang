@@ -8,8 +8,10 @@ use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
+use DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CategoryRequest;
+use Log;
 
 class CategoryController extends Controller
 {   
@@ -123,6 +125,9 @@ class CategoryController extends Controller
         try {
             //code...
             $category = Category::withTrashed()->find($cat_id)->restore();
+            if($category){
+                $product = Product::withTrashed()->find($cat_id)->restore();
+            }
         } catch (\Exception $e) {
             //throw $e;
             return redirect()->back()->withError($e->getMessage());
@@ -131,6 +136,16 @@ class CategoryController extends Controller
                 return redirect()->back()->with(['message' => 'Khôi phục danh mục thành công']);
             }
         }
+    }
+
+    //hide all category
+    public function hideAll(Request $request){
+
+        /* $cat_id = $request->all();
+        foreach($cat_id as $id){
+            DB::table('tbl_category')->find($id)->update(['cat_status' => 0]);
+        } */
+        return response()->json(['success' => 'Đã ẩn sản phẩm thành công']);
     }
 
     ////End back-end

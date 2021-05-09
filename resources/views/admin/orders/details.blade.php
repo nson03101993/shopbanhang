@@ -238,18 +238,15 @@
                             <div class="row no-print">
                                 <div class="col-xs-12">
                                     <br>
-                                    <a href="" target="_blank"
-                                        class="btn btn-default"><i class="fa fa-print"></i> In đơn hàng</a>
+                                    <a href="" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> In đơn hàng</a>
                                     &nbsp;
-                                    <a href="" target="_blank"
-                                        class="btn btn-default" style="margin-left: 5px;">
+                                    <a href="" target="_blank" class="btn btn-default" style="margin-left: 5px;">
                                         <i class="fa fa-download"></i> Xuất hóa đơn
                                     </a>
-                                    <a href="" class="btn btn-primary pull-right"
-                                        style="margin-right: 5px;">
+                                    <a href="{{ route('show_all_orders') }}" class="btn btn-primary pull-right" style="margin-right: 5px;">
                                         Trở về
                                     </a>
-                                    <a href=""
+                                    <a href="#"
                                         class="btn btn-warning pull-right" style="margin-right: 5px;">
                                         Sửa đơn hàng này
                                     </a>

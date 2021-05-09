@@ -3182,3 +3182,10 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 	opacity: 0;
 	cursor: pointer;
 }
+
+#dashboard-title {
+    text-align: center;
+    color:rgb(95, 44, 44);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}

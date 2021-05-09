@@ -10,6 +10,11 @@
                     <li class="active">Giỏ Hàng</li>
                     </ol>
                 </div>
+
+                @if (Session::has('fail'))
+                    <h3>{{ Session::get('fail') }}</h3>
+                @endif
+
                 <div class="table-responsive cart_info">
                     <table class="table table-condensed">
                         <thead>
@@ -41,15 +46,15 @@
                                             <h4>{{ $cart->name }}</h4>
                                         </td>
                                         <td class="cart_price">
-                                            <p>{{ Helper::formatPrice($cart->price) }} VNĐ</p>
+                                            <p style="margin-top: 15px;">{{ Helper::formatPrice($cart->price) }} VNĐ</p>
                                         </td>
                                         <td class="cart_quantity">
                                             <div class="cart_quantity_button">
                                                 <form method="POST" action="{{ route('update_cart') }}">
                                                     {{{ @csrf_field() }}}
-                                                <a class="cart_quantity_up" href="#"> + </a>
+                                                <input value="-" id="minus" type="button" class="btn btn-primary cart_quantity_down">
                                                 <input id="qty" class="cart_quantity_input" type="text" name="quantity" value="{{ $cart->qty }}" autocomplete=off size="2">
-                                                <a class="cart_quantity_down" href="#"> - </a>
+                                                <input value="+" id="plus" type="button" class="btn btn-primary cart_quantity_up">
                                                 <input name="rowId" type="hidden" value="{{ $cart->rowId }}" >
                                                 <button style="margin-left: 10px" type="submit" class="btn btn-success">
                                                     <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -58,7 +63,7 @@
                                             </div>
                                         </td>
                                         <td class="cart_total">
-                                            <p class="cart_total_price">{{ number_format($cart->qty * $cart->price,0,",",".") }} VNĐ</p>
+                                            <p style="margin-top: 10px" class="cart_total_price">{{ number_format($cart->qty * $cart->price,0,",",".") }} VNĐ</p>
                                         </td>
                                         <td class="cart_delete">
                                             <a class="cart_quantity_delete" href="{{ route('delete_cart',['rowId' => $cart->rowId]) }}"><i class="fa fa-times"></i></a>
@@ -94,5 +99,20 @@
             </div>
         </section><!--/#do_action-->
 
+        <script type="text/javascript">
+           $("#minus").on('click', function(){
+                var count = $("#qty").val();
+                if(count > 1){
+                    var data = --count;
+                    $("#qty").val(data);
+                }
+           });
+
+           $("#plus").on('click', function(){
+                var count = $("#qty").val();
+                var data = ++count;
+                $("#qty").val(data);
+           });
+        </script>
 
 @endsection

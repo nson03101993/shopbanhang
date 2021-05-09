@@ -37,7 +37,7 @@
                         <tr>
                             <th style="width:20px;">
                                 <label class="i-checks m-b-none">
-                                    <input type="checkbox"><i></i>
+                                    <input name="selectAll" id="selectAll" type="checkbox"><i></i>
                                 </label>
                             </th>
                             <th>Tên Danh Mục</th>
@@ -49,7 +49,7 @@
                     <tbody>
                         @foreach ($category as $key => $items)
                             <tr>
-                                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                                <td><label class="i-checks m-b-none"><input value="{{ $items->cat_id }}" class="checkbox" type="checkbox" name="cat_id[]"><i></i></label></td>
                                 <td>{{$items->cat_name}}</td>
                                 <td>{!!$items->cat_desc!!}</td>
                                 <td>
@@ -87,11 +87,62 @@
                         </ul>
                     </div>
                     <div class="col-sm-4 text-center">
-                        <span style="font-size: 20px; color: red; padding-right: 20px" class="fa fa-thumbs-down">Ẩn</span>
-                        <span style="font-size: 20px; color: blue" class="fa fa-thumbs-up">Hiển thị</span>
+                        <a href="javascript:void(0)" onClick="hideAll()"><span style="font-size: 20px; color: red; padding-right: 20px" class="fa fa-thumbs-down">Ẩn</span></a>
+                        <a href="#"><span style="font-size: 20px; color: blue" class="fa fa-thumbs-up">Hiển thị</span></a>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+
+    <script type="text/javascript">
+       function hideAll(){
+           if(confirm("Bạn có chắc chắn muốn ẩn toàn bộ danh mục ở trang này không?")){
+                   var cat_id = [];
+                   $(".checkbox:checked").each(function(){
+                        cat_id.push($(this).val());
+                   });
+
+                   var requestData = JSON.stringify(cat_id);
+
+                   //call ajax
+                   $.ajax({
+                       url: 'hide_all',
+                       type: 'GET',
+                       data: requestData,
+                       dataType: 'json',
+                       cache: false,
+                       success: function(res){ 
+                           alert(res.success);
+                       },
+                       error: function(res){
+                           console.log("AJAX Failed!!!");
+                       }
+                   });
+
+           }
+        }
+    </script>
+
+    <script type="text/javascript">
+        
+        //on click "Select All", set all checkbox "checked"
+        $(document).ready(function(){
+            $("#selectAll").on('change', function(){
+                $(".checkbox").prop("checked", $(this).prop("checked"));
+            });
+
+        //if one checkbox is not checked, disable "Select All" 
+            $(".checkbox").on('change', function(){
+                if($(this).prop("checked") == false){
+                    $("#selectAll").prop("checked", false);
+                }
+
+                //if all checkbox are checked, make "Select All" become available
+                if($(".checkbox:checked").length == $(".checkbox").length){
+                    $("#selectAll").prop("checked", true);
+                }
+            });
+        });
+    </script>
 @endsection

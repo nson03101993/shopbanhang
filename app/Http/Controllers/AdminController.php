@@ -9,6 +9,7 @@ use App\Models\OrdersDetails;
 use App\Models\User;
 use App\Models\Product;
 use Carbon\Carbon;
+use App\Charts\DailyRecord;
 use Exception;
 
 class AdminController extends Controller
@@ -16,7 +17,31 @@ class AdminController extends Controller
     //
 
     public function dashboard(){
-        return view('admin.dashboard');
+
+        //Sales record of seven days nearby
+        $chart = new DailyRecord;
+        $chart->labels(['6 days ago', '5 days ago', '4 days ago', '3 days ago', '2 days ago', 'Yesterday', 'Today']);
+
+        //make a collection to store sales record
+        $collection = collect([]); //could be an array
+
+        for($subday = 6; $subday >= 0; $subday--){
+            $total = 0;
+            $orders = Orders::whereDate('created_at', Carbon::now()->subDays($subday))->get();
+            if($orders){
+                foreach($orders as $items){
+                    $total += intval($items->orders_total);
+                }
+            }
+            else{
+                $total = 0;
+            }
+            $collection->push($total);
+        }
+
+
+        $chart->dataset('Thống kê doanh thu bảy ngày gần nhất (đơn vị: triệu VNĐ)', 'bar', $collection)->options(['backgroundColor' => '#8bbc21']);
+        return view('admin.dashboard', compact('chart'));
     }
 
     //Orders

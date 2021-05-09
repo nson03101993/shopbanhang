@@ -165,7 +165,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Cohensive\Embed\EmbedServiceProvider::class,
-
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        
         /*
          * Package Service Providers...
          */

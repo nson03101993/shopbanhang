@@ -37,7 +37,7 @@
                         <tr>
                             <th style="width:20px;">
                                 <label class="i-checks m-b-none">
-                                    <input type="checkbox"><i></i>
+                                    <input id="selectAll" type="checkbox"><i></i>
                                 </label>
                             </th>
                             <th>STT</th>
@@ -53,7 +53,7 @@
                     <tbody>
                         @foreach ($news as $key => $items)
                             <tr id="news_{{ $items->id }}">
-                                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                                <td><label class="i-checks m-b-none"><input class="checkbox" type="checkbox" name="post[]"><i></i></label></td>
                                 <td>{{ $items->id }}</td>
                                 <td>{{ $items->title }}</td>
                                 <td>
@@ -99,6 +99,25 @@
             </footer>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#selectAll").on("change", function(){
+                $(".checkbox").prop("checked", $(this).prop("checked"));
+            });
+
+            $(".checkbox").on("change", function(){
+                if($(".checkbox").prop("checked") == false){
+                    $("#selectAll").prop("checked", false);
+                }
+
+                if($(".checkbox:checked").length == $(".checkbox").length){
+                    $("#selectAll").prop("checked", true);
+                }
+            })
+        });
+    </script>
+
     <script type="text/javascript">
         function deleteNews(id){
             $.ajaxSetup({

@@ -119,6 +119,9 @@ class BrandController extends Controller
         try {
             //code...
             $brand = Brand::withTrashed()->find($brand_id)->restore();
+            if($brand){
+                $product = Product::withTrashed()->find($brand_id)->restore();
+            }
         } catch (\Exception $e) {
             //throw $e;
             return redirect()->back()->withError($e->getMessage());

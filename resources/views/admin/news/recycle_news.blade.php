@@ -37,7 +37,7 @@
                         <tr>
                             <th style="width:20px;">
                                 <label class="i-checks m-b-none">
-                                    <input type="checkbox"><i></i>
+                                    <input id="selectAll" type="checkbox"><i></i>
                                 </label>
                             </th>
                             <th>STT</th>
@@ -53,7 +53,7 @@
                     <tbody>
                         @foreach ($news as $key => $items)
                             <tr id="news_{{$items->id}}">
-                                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                                <td><label class="i-checks m-b-none"><input class="checkbox" type="checkbox" name="post[]"><i></i></label></td>
                                 <td>{{$items->id}}</td>
                                 <td>{{$items->title}}</td>
                                 <td>
@@ -99,6 +99,29 @@
             </footer>
         </div>
     </div>
+
+    <script type="text/javascript">
+        
+        //on click "Select All", set all checkbox "checked"
+        $(document).ready(function(){
+            $("#selectAll").on('change', function(){
+                $(".checkbox").prop("checked", $(this).prop("checked"));
+            });
+
+        //if one checkbox is not checked, disable "Select All" 
+            $(".checkbox").on('change', function(){
+                if($(this).prop("checked") == false){
+                    $("#selectAll").prop("checked", false);
+                }
+
+                //if all checkbox are checked, make "Select All" become available
+                if($(".checkbox:checked").length == $(".checkbox").length){
+                    $("#selectAll").prop("checked", true);
+                }
+            });
+        });
+    </script>
+
     <script type="text/javascript">
        function deleteMe(id){
            if(confirm('Bạn có chắc chắn muốn xóa tin tức này vĩnh viễn. Thao tác này không thể hoàn tác.')){

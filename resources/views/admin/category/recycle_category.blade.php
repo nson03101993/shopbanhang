@@ -37,7 +37,7 @@
                         <tr>
                             <th style="width:20px;">
                                 <label class="i-checks m-b-none">
-                                    <input type="checkbox"><i></i>
+                                    <input id="selectAll" type="checkbox"><i></i>
                                 </label>
                             </th>
                             <th>Tên Danh Mục</th>
@@ -48,7 +48,7 @@
                     <tbody>
                         @foreach ($category as $key => $items)
                             <tr>
-                                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+                                <td><label class="i-checks m-b-none"><input class="checkbox" type="checkbox" name="post[]"><i></i></label></td>
                                 <td>{{$items->cat_name}}</td>
                                 <td>
                                     <?php
@@ -92,4 +92,27 @@
             </footer>
         </div>
     </div>
+
+    <script type="text/javascript">
+        
+        //on click "Select All", set all checkbox "checked"
+        $(document).ready(function(){
+            $("#selectAll").on('change', function(){
+                $(".checkbox").prop("checked", $(this).prop("checked"));
+            });
+
+        //if one checkbox is not checked, disable "Select All" 
+            $(".checkbox").on('change', function(){
+                if($(this).prop("checked") == false){
+                    $("#selectAll").prop("checked", false);
+                }
+
+                //if all checkbox are checked, make "Select All" become available
+                if($(".checkbox:checked").length == $(".checkbox").length){
+                    $("#selectAll").prop("checked", true);
+                }
+            });
+        });
+    </script>
+
 @endsection

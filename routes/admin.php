@@ -46,6 +46,8 @@ Route::group(['middleware' => 'CheckLogin'], function(){
 
         Route::get('/restore/{cat_id}', 'CategoryController@restoreCategory')->name('restore_category');
 
+        Route::get('/hide_all', 'CategoryController@hideAll')->name('hide_all');
+
     });
 
     //Brand

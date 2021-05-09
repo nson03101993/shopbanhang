@@ -78,8 +78,13 @@ class CartController extends Controller
     public function updateCart(Request $request){
         $rowId = $request->rowId;
         $quantity = $request->quantity;
-        Cart::update($rowId,$quantity);
-        return redirect()->back();
+        if($quantity < 1 || $quantity > 100){
+            return redirect()->back()->with('fail', 'Số lượng sản phẩm không được nhỏ hơn 1 hoặc lớn hơn 100.');
+        }
+        else{
+            Cart::update($rowId,$quantity);
+            return redirect()->back();
+        } 
     }
 
 }
